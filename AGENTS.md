@@ -69,6 +69,7 @@ The core content model is a **page builder** — an array of typed blocks:
 - **Block components**: `apps/web/src/components/sections/` — one file per block type (hero, cta, faq-accordion, etc.)
 
 To add a new page builder block:
+
 1. Create schema in `apps/studio/schemaTypes/blocks/new-block.ts`
 2. Add to `apps/studio/schemaTypes/blocks/index.ts` array
 3. Run `pnpm type` in studio
@@ -104,28 +105,33 @@ All frontend types derive from generated Sanity types. `apps/web/src/types.ts` e
 ## Conventions
 
 ### File Naming
+
 - **kebab-case** for all files: `feature-cards-icon.ts`, `blog-card.tsx`
 - `.tsx` for React components, `.ts` for utilities
 
 ### Sanity Schema
+
 - Always use `defineType`, `defineField`, `defineArrayMember` from `sanity`
 - Include `description` on every field (written for non-technical users)
 - Icons: prefer `@sanity/icons`, fall back to `lucide-react`
 - GROQ: don't expand images unless explicitly needed. Use `defineQuery` from `next-sanity`
 
 ### Frontend
+
 - Prefer `grid` over `flex` unless two sibling elements
 - Use `SanityImage` component for Sanity images (from `sanity-image` library)
 - Use `SanityButtons` resolver for button arrays
 - Shared UI components in `@workspace/ui` (Radix + CVA pattern)
 
 ### Formatting (Biome)
+
 - Double quotes, semicolons, trailing commas (ES5), 2-space indent, 80 char line width
 - Import ordering: node/packages → blank line → aliases/paths
 - `noConsole: warn`, `noExplicitAny: warn`
 - Use `@workspace/logger` Logger class instead of raw `console.*`
 
 ### Node/Runtime
+
 - Node >= 22 required
 - pnpm 10.28.0 (corepack)
 - Turborepo handles task orchestration — `transit` task runs before lint/format/check-types

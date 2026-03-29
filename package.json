@@ -1,5 +1,5 @@
 {
-  "name": "canadian-adventure-camp",
+  "name": "canadian-adventure-camp-2026",
   "version": "1.0.0",
   "dependencies": {
     "@workspace/env": "workspace:*"
