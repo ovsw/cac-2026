@@ -25,6 +25,7 @@
     "lint": "turbo run lint",
     "format": "turbo run format",
     "format:check": "turbo run format:check",
+    "format:biome": "biome check --write .",
     "check-types": "turbo run check-types",
     "test:e2e": "turbo run test:e2e"
   },

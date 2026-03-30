@@ -11,6 +11,15 @@ import { FaqAccordion } from "./sections/faq-accordion";
 import { FeatureCardsWithIcon } from "./sections/feature-cards-with-icon";
 import { HeroBlock } from "./sections/hero";
 import { ImageLinkCards } from "./sections/image-link-cards";
+import {
+  LegacyBigHeadingBlock,
+  LegacyCtaSectionBlock,
+  LegacyFaqSectionBlock,
+  LegacyMagSectionBlock,
+  LegacyReusedSectionBlock,
+  LegacyTestimonialSectionBlock,
+  LegacyTestimonialsSectionBlock,
+} from "./sections/legacy-page-builder";
 import { RichTextBlock } from "./sections/rich-text-block";
 import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
 
@@ -35,6 +44,13 @@ const BLOCK_COMPONENTS = {
   subscribeNewsletter: SubscribeNewsletter,
   imageLinkCards: ImageLinkCards,
   richTextBlock: RichTextBlock,
+  legacyMagSection: LegacyMagSectionBlock,
+  legacyCtaSection: LegacyCtaSectionBlock,
+  legacyBigHeading: LegacyBigHeadingBlock,
+  legacyFaqSection: LegacyFaqSectionBlock,
+  legacyTestimonialSection: LegacyTestimonialSectionBlock,
+  legacyTestimonialsSection: LegacyTestimonialsSectionBlock,
+  legacyReusedSection: LegacyReusedSectionBlock,
   // biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering>
 } as const satisfies Record<PageBuilderBlockTypes, React.ComponentType<any>>;
 

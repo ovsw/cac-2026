@@ -60,6 +60,18 @@ const richTextFragment = /* groq */ `
   }
 `;
 
+const legacyRichTextFragment = /* groq */ `
+  text[]{
+    ...,
+    markDefs[]{
+      ...,
+      _type == "link" => {
+        href
+      }
+    }
+  }
+`;
+
 const blogAuthorFragment = /* groq */ `
   authors[0]->{
     _id,
@@ -189,6 +201,73 @@ const richTextBlockFragment = /* groq */ `
   }
 `;
 
+const legacyMagSectionBlock = /* groq */ `
+  _type == "legacyMagSection" => {
+    ...,
+    ${legacyRichTextFragment}
+  }
+`;
+
+const legacyCtaSectionBlock = /* groq */ `
+  _type == "legacyCtaSection" => {
+    ...,
+    ${legacyRichTextFragment}
+  }
+`;
+
+const legacyBigHeadingBlock = /* groq */ `
+  _type == "legacyBigHeading" => {
+    ...
+  }
+`;
+
+const legacyFaqSectionBlock = /* groq */ `
+  _type == "legacyFaqSection" => {
+    ...,
+    "faqItems": array::compact(faqItems[]->{
+      _id,
+      _type,
+      title,
+      ${richTextFragment}
+    })
+  }
+`;
+
+const legacyTestimonialSectionBlock = /* groq */ `
+  _type == "legacyTestimonialSection" => {
+    ...,
+    "testimonial": testimonial->{
+      _id,
+      _type,
+      author,
+      text
+    }
+  }
+`;
+
+const legacyTestimonialsSectionBlock = /* groq */ `
+  _type == "legacyTestimonialsSection" => {
+    ...,
+    "testimonialsList": array::compact(testimonialsList[]->{
+      _id,
+      _type,
+      author,
+      text
+    })
+  }
+`;
+
+const legacyReusedSectionBlock = /* groq */ `
+  _type == "legacyReusedSection" => {
+    ...,
+    "reusableSection": reusableSection->{
+      _id,
+      _type,
+      title
+    }
+  }
+`;
+
 const pageBuilderFragment = /* groq */ `
   pageBuilder[]{
     ...,
@@ -199,7 +278,14 @@ const pageBuilderFragment = /* groq */ `
     ${featureCardsIconBlock},
     ${subscribeNewsletterBlock},
     ${imageLinkCardsBlock},
-    ${richTextBlockFragment}
+    ${richTextBlockFragment},
+    ${legacyMagSectionBlock},
+    ${legacyCtaSectionBlock},
+    ${legacyBigHeadingBlock},
+    ${legacyFaqSectionBlock},
+    ${legacyTestimonialSectionBlock},
+    ${legacyTestimonialsSectionBlock},
+    ${legacyReusedSectionBlock}
   }
 `;
 

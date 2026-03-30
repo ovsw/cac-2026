@@ -6,6 +6,7 @@ import {
   imageWithAltField,
   pageBuilderField,
 } from "@/schemaTypes/common";
+import { legacyPageMigrationFields } from "@/schemaTypes/definitions/legacy-page";
 import { GROUP, GROUPS } from "@/utils/constant";
 import { ogFields } from "@/utils/og-fields";
 import { seoFields } from "@/utils/seo-fields";
@@ -59,6 +60,7 @@ export const page = defineType({
       group: GROUP.MAIN_CONTENT,
     }),
     pageBuilderField,
+    ...legacyPageMigrationFields,
     ...seoFields.filter((field) => field.name !== "seoHideFromLists"),
     ...ogFields,
   ],

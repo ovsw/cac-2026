@@ -44,3 +44,6 @@ npm-debug.log*
 # reference
 reference/
 .codex/
+
+# local backups
+apps/studio/backups
