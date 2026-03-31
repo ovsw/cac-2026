@@ -9,6 +9,7 @@ import {
   MessageCircle,
   PanelBottom,
   PanelBottomIcon,
+  Quote,
   Settings2,
   TrendingUpDown,
   User,
@@ -124,6 +125,12 @@ export const structure = (
         icon: MessageCircle,
       }),
       createList({ S, type: "author", title: "Authors", icon: User }),
+      createList({
+        S,
+        type: "testimonial",
+        title: "Testimonials",
+        icon: Quote,
+      }),
       createList({
         S,
         type: "redirect",

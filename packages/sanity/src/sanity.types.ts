@@ -651,16 +651,6 @@ export type ReusableSection = {
   description?: LegacyPortableText;
 };
 
-export type Testimonial = {
-  _id: string;
-  _type: "testimonial";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  author?: string;
-  text?: string;
-};
-
 export type Redirect = {
   _id: string;
   _type: "redirect";
@@ -811,6 +801,16 @@ export type HomePage = {
   seoImage?: SeoImage;
   ogTitle?: string;
   ogDescription?: string;
+};
+
+export type Testimonial = {
+  _id: string;
+  _type: "testimonial";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  author: string;
+  text: string;
 };
 
 export type Author = {
@@ -1216,7 +1216,6 @@ export type AllSanitySchemaTypes =
   | PageReference
   | CustomUrl
   | ReusableSection
-  | Testimonial
   | Redirect
   | Slug
   | Navbar
@@ -1226,6 +1225,7 @@ export type AllSanitySchemaTypes =
   | SanityImageHotspot
   | BlogIndex
   | HomePage
+  | Testimonial
   | Author
   | Faq
   | Page
@@ -1676,8 +1676,8 @@ export type QueryHomePageDataResult = {
         testimonial: {
           _id: string;
           _type: "testimonial";
-          author: string | null;
-          text: string | null;
+          author: string;
+          text: string;
         } | null;
       }
     | {
@@ -1687,8 +1687,8 @@ export type QueryHomePageDataResult = {
         testimonialsList: Array<{
           _id: string;
           _type: "testimonial";
-          author: string | null;
-          text: string | null;
+          author: string;
+          text: string;
         }> | null;
       }
     | {
@@ -2223,8 +2223,8 @@ export type QuerySlugPageDataResult = {
         testimonial: {
           _id: string;
           _type: "testimonial";
-          author: string | null;
-          text: string | null;
+          author: string;
+          text: string;
         } | null;
       }
     | {
@@ -2234,8 +2234,8 @@ export type QuerySlugPageDataResult = {
         testimonialsList: Array<{
           _id: string;
           _type: "testimonial";
-          author: string | null;
-          text: string | null;
+          author: string;
+          text: string;
         }> | null;
       }
     | {
@@ -2772,8 +2772,8 @@ export type QueryBlogIndexPageDataResult = {
         testimonial: {
           _id: string;
           _type: "testimonial";
-          author: string | null;
-          text: string | null;
+          author: string;
+          text: string;
         } | null;
       }
     | {
@@ -2783,8 +2783,8 @@ export type QueryBlogIndexPageDataResult = {
         testimonialsList: Array<{
           _id: string;
           _type: "testimonial";
-          author: string | null;
-          text: string | null;
+          author: string;
+          text: string;
         }> | null;
       }
     | {

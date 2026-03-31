@@ -1,4 +1,4 @@
-import { DocumentsIcon, UsersIcon } from "@sanity/icons";
+import { DocumentsIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 import {
@@ -18,29 +18,6 @@ const deprecatedDocumentOptions = {
       "Legacy CAC content preserved for page migration compatibility. Do not create new documents of this type.",
   },
 };
-
-export const legacyTestimonial = defineType({
-  name: "testimonial",
-  title: "Legacy Testimonial",
-  type: "document",
-  icon: UsersIcon,
-  fields: [
-    defineField({
-      name: "author",
-      type: "string",
-      title: "Author",
-      readOnly: true,
-    }),
-    defineField({
-      name: "text",
-      type: "text",
-      title: "Text",
-      rows: 5,
-      readOnly: true,
-    }),
-  ],
-  ...deprecatedDocumentOptions,
-});
 
 export const legacyReusableSection = defineType({
   name: "reusableSection",
@@ -80,7 +57,4 @@ export const legacyReusableSection = defineType({
   ...deprecatedDocumentOptions,
 });
 
-export const legacyReferenceDocuments = [
-  legacyTestimonial,
-  legacyReusableSection,
-];
+export const legacyReferenceDocuments = [legacyReusableSection];
