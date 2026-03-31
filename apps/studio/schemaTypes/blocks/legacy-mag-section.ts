@@ -22,11 +22,10 @@ export const legacyMagSection = defineType({
   preview: {
     select: {
       title: "title",
-      subtitle: "subtitle",
     },
-    prepare: ({ title, subtitle }) => ({
+    prepare: ({ title }) => ({
       title: title || "Untitled Legacy Magazine Section",
-      subtitle: subtitle || "Legacy Magazine Section",
+      subtitle: "Legacy Magazine Section",
     }),
   },
 });

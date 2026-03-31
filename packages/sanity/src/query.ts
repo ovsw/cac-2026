@@ -63,11 +63,9 @@ const richTextFragment = /* groq */ `
 const legacyRichTextFragment = /* groq */ `
   text[]{
     ...,
-    markDefs[]{
+    _type == "block" => {
       ...,
-      _type == "link" => {
-        href
-      }
+      ${markDefsFragment}
     }
   }
 `;

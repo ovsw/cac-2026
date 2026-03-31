@@ -1,3 +1,4 @@
+import { LinkIcon } from "@sanity/icons";
 import {
   type ConditionalProperty,
   defineArrayMember,
@@ -10,7 +11,7 @@ import { GROUP } from "@/utils/constant";
 const deprecatedReason =
   "Legacy CAC page data kept for migration verification and rollback. Edit the new page builder fields instead.";
 
-const legacyLinkMark = defineArrayMember({
+const legacyPortableTextBlock = defineArrayMember({
   name: "block",
   type: "block",
   styles: [
@@ -29,14 +30,14 @@ const legacyLinkMark = defineArrayMember({
   marks: {
     annotations: [
       {
-        name: "link",
-        title: "Legacy Link",
+        name: "customLink",
         type: "object",
+        title: "Internal/External Link",
+        icon: LinkIcon,
         fields: [
           defineField({
-            name: "href",
-            type: "url",
-            title: "URL",
+            name: "customLink",
+            type: "customUrl",
           }),
         ],
       },
@@ -53,7 +54,7 @@ export const legacyPortableText = defineType({
   name: "legacyPortableText",
   title: "Legacy Portable Text",
   type: "array",
-  of: [legacyLinkMark],
+  of: [legacyPortableTextBlock],
 });
 
 const hiddenIfUndefined = ({ value }: { value: unknown }) =>

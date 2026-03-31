@@ -3285,10 +3285,11 @@
               "of": {
                 "type": "object",
                 "attributes": {
-                  "href": {
+                  "customLink": {
                     "type": "objectAttribute",
                     "value": {
-                      "type": "string"
+                      "type": "inline",
+                      "name": "customUrl"
                     },
                     "optional": true
                   },
@@ -3296,7 +3297,7 @@
                     "type": "objectAttribute",
                     "value": {
                       "type": "string",
-                      "value": "link"
+                      "value": "customLink"
                     }
                   }
                 },
