@@ -4,6 +4,7 @@ import { blogIndex } from "@/schemaTypes/documents/blog-index";
 import { faq } from "@/schemaTypes/documents/faq";
 import { footer } from "@/schemaTypes/documents/footer";
 import { homePage } from "@/schemaTypes/documents/home-page";
+import { legacyReusableSection } from "@/schemaTypes/documents/legacy-reference-documents";
 import { navbar } from "@/schemaTypes/documents/navbar";
 import { page } from "@/schemaTypes/documents/page";
 import { redirect } from "@/schemaTypes/documents/redirect";
@@ -18,6 +19,7 @@ export const documents = [
   faq,
   author,
   testimonial,
+  legacyReusableSection,
   ...singletons,
   redirect,
 ];

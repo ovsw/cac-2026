@@ -257,13 +257,47 @@ const legacyTestimonialsSectionBlock = /* groq */ `
   }
 `;
 
+const embeddedReusableSectionPageBuilderFragment = /* groq */ `
+  pageBuilder[]{
+    ...,
+    _type,
+    ${ctaBlock},
+    ${heroBlock},
+    ${faqAccordionBlock},
+    ${featureCardsIconBlock},
+    ${subscribeNewsletterBlock},
+    ${imageLinkCardsBlock},
+    ${richTextBlockFragment},
+    ${legacyMagSectionBlock},
+    ${legacyCtaSectionBlock},
+    ${legacyBigHeadingBlock},
+    ${legacyFaqSectionBlock},
+    ${legacyTestimonialSectionBlock},
+    ${legacyTestimonialsSectionBlock}
+  }
+`;
+
+const reusableSectionProjection = /* groq */ `
+  _id,
+  _type,
+  title,
+  ${embeddedReusableSectionPageBuilderFragment}
+`;
+
+const reusableSectionReferenceBlock = /* groq */ `
+  _type == "reusableSectionReference" => {
+    ...,
+    "reusableSection": reusableSection->{
+      ${reusableSectionProjection}
+    }
+  }
+`;
+
 const legacyReusedSectionBlock = /* groq */ `
   _type == "legacyReusedSection" => {
     ...,
     "reusableSection": reusableSection->{
-      _id,
-      _type,
-      title
+      ${reusableSectionProjection}
     }
   }
 `;
@@ -279,6 +313,7 @@ const pageBuilderFragment = /* groq */ `
     ${subscribeNewsletterBlock},
     ${imageLinkCardsBlock},
     ${richTextBlockFragment},
+    ${reusableSectionReferenceBlock},
     ${legacyMagSectionBlock},
     ${legacyCtaSectionBlock},
     ${legacyBigHeadingBlock},

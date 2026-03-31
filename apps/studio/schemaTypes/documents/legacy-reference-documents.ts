@@ -12,24 +12,29 @@ import {
   legacyTestimonialsSectionSource,
 } from "@/schemaTypes/definitions/legacy-page";
 
-const deprecatedDocumentOptions = {
-  deprecated: {
-    reason:
-      "Legacy CAC content preserved for page migration compatibility. Do not create new documents of this type.",
-  },
-};
-
 export const legacyReusableSection = defineType({
   name: "reusableSection",
-  title: "Legacy Reusable Section",
+  title: "Reusable Section",
   type: "document",
   icon: DocumentsIcon,
+  description:
+    "Create shared sections that can be inserted across multiple pages and updated from one place.",
   fields: [
     defineField({
       name: "title",
       type: "string",
       title: "Title",
-      readOnly: true,
+      description:
+        "The internal name editors will use to find this reusable section.",
+      validation: (Rule) =>
+        Rule.required().error("A reusable section title is required."),
+    }),
+    defineField({
+      name: "pageBuilder",
+      title: "Reusable Section Content",
+      type: "reusableSectionPageBuilder",
+      description:
+        "Build the shared section content that should appear anywhere this reusable section is referenced.",
     }),
     defineField({
       name: "sections",
@@ -45,16 +50,36 @@ export const legacyReusableSection = defineType({
         defineArrayMember({ type: legacyTestimonialsSectionSource.name }),
         defineArrayMember({ type: legacyReusedSectionSource.name }),
       ],
+      deprecated: {
+        reason:
+          "Legacy migration source field preserved for compatibility while reusable sections move to the new page builder.",
+      },
+      hidden: ({ value }) => value === undefined,
     }),
     defineField({
       name: "description",
       title: "Description",
       type: legacyPortableText.name,
-      hidden: true,
+      hidden: ({ value }) => value === undefined,
       readOnly: true,
+      deprecated: {
+        reason:
+          "Legacy migration field preserved temporarily for verification and cleanup.",
+      },
     }),
   ],
-  ...deprecatedDocumentOptions,
+  preview: {
+    select: {
+      title: "title",
+      blockCount: "pageBuilder",
+    },
+    prepare: ({ blockCount, title }) => ({
+      title: title || "Untitled Reusable Section",
+      subtitle: Array.isArray(blockCount)
+        ? `Reusable blocks: ${blockCount.length}`
+        : "Reusable section",
+    }),
+  },
 });
 
 export const legacyReferenceDocuments = [legacyReusableSection];

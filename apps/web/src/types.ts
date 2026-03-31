@@ -14,6 +14,24 @@ export type PageBuilderBlock = Get<
   number
 >;
 
+export type ReusableSectionPageBuilderBlock =
+  | Get<
+      PagebuilderType<"reusableSectionReference">,
+      "reusableSection",
+      "pageBuilder",
+      number
+    >
+  | Get<
+      PagebuilderType<"legacyReusedSection">,
+      "reusableSection",
+      "pageBuilder",
+      number
+    >;
+
+export type RenderablePageBuilderBlock =
+  | PageBuilderBlock
+  | ReusableSectionPageBuilderBlock;
+
 export type PageBuilderBlockTypes = NonNullable<PageBuilderBlock>["_type"];
 
 export type PagebuilderType<T extends PageBuilderBlockTypes> = FilterByType<

@@ -1,7 +1,10 @@
 import { button } from "@/schemaTypes/definitions/button";
 import { customUrl } from "@/schemaTypes/definitions/custom-url";
 import { legacyPageDefinitions } from "@/schemaTypes/definitions/legacy-page";
-import { pageBuilder } from "@/schemaTypes/definitions/pagebuilder";
+import {
+  pageBuilder,
+  reusableSectionPageBuilder,
+} from "@/schemaTypes/definitions/pagebuilder";
 import { richText } from "@/schemaTypes/definitions/rich-text";
 
 export const definitions = [
@@ -9,5 +12,6 @@ export const definitions = [
   richText,
   button,
   pageBuilder,
+  reusableSectionPageBuilder,
   ...legacyPageDefinitions,
 ];

@@ -10,6 +10,7 @@ import { legacyMagSection } from "@/schemaTypes/blocks/legacy-mag-section";
 import { legacyReusedSection } from "@/schemaTypes/blocks/legacy-reused-section";
 import { legacyTestimonialSection } from "@/schemaTypes/blocks/legacy-testimonial-section";
 import { legacyTestimonialsSection } from "@/schemaTypes/blocks/legacy-testimonials-section";
+import { reusableSectionReference } from "@/schemaTypes/blocks/reusable-section-reference";
 import { richTextBlock } from "@/schemaTypes/blocks/rich-text";
 import { subscribeNewsletter } from "@/schemaTypes/blocks/subscribe-newsletter";
 
@@ -21,6 +22,7 @@ export const pageBuilderBlocks = [
   imageLinkCards,
   richTextBlock,
   subscribeNewsletter,
+  reusableSectionReference,
   legacyMagSection,
   legacyCtaSection,
   legacyBigHeading,

@@ -112,6 +112,12 @@ export const structure = (
       createSingleTon({ S, type: "homePage", icon: HomeIcon }),
       S.divider(),
       createSlugBasedStructure(S, "page"),
+      createList({
+        S,
+        type: "reusableSection",
+        title: "Reusable Sections",
+        icon: File,
+      }),
       createIndexListWithOrderableItems({
         S,
         index: { type: "blogIndex", icon: BookMarked },
