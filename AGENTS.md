@@ -1,6 +1,6 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Sanity Project Info
+Sanity project ID: "lwnx6aqb"
+Sanity dataset: "development"
 
 ## Project Overview
 
