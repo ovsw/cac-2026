@@ -1,8 +1,18 @@
-# Sanity Project Info
+# Important Tool Use Notes
+## Working directory for context-mode tools
+
+`mcp__context-mode__ctx_batch_execute` and `mcp__context-mode__ctx_execute` may not inherit the desktop thread cwd reliably.
+When using them for repo inspection, always start each command with:
+
+`cd /Users/ovs/Work/Dev/cac/cac-2026 && ...`
+
+Do not assume the sandbox starts in the repository root.
+
+## Sanity Project Info for Sanity MCP and CLI
 Sanity project ID: "lwnx6aqb"
 Sanity dataset: "development"
 
-## Project Overview
+# Project Overview
 
 Turbo Start Sanity — a pnpm monorepo (Turborepo) with a Next.js 16 frontend and Sanity v5 CMS Studio. Uses Biome/Ultracite for linting/formatting.
 
