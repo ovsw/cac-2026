@@ -204,6 +204,7 @@ const richTextBlockFragment = /* groq */ `
 const legacyMagSectionBlock = /* groq */ `
   _type == "legacyMagSection" => {
     ...,
+    ${buttonsFragment},
     ${legacyRichTextFragment}
   }
 `;
@@ -211,6 +212,7 @@ const legacyMagSectionBlock = /* groq */ `
 const legacyCtaSectionBlock = /* groq */ `
   _type == "legacyCtaSection" => {
     ...,
+    ${buttonsFragment},
     ${legacyRichTextFragment}
   }
 `;

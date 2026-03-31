@@ -456,11 +456,25 @@
           },
           "optional": true
         },
-        "button1": {
+        "buttons": {
           "type": "objectAttribute",
           "value": {
-            "type": "inline",
-            "name": "legacyButton"
+            "type": "array",
+            "of": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              },
+              "rest": {
+                "type": "inline",
+                "name": "button"
+              }
+            }
           },
           "optional": true
         }
@@ -524,7 +538,7 @@
           },
           "optional": true
         },
-        "button1": {
+        "buttons": {
           "type": "objectAttribute",
           "value": {
             "type": "array",
@@ -540,7 +554,7 @@
               },
               "rest": {
                 "type": "inline",
-                "name": "legacyButton"
+                "name": "button"
               }
             }
           },

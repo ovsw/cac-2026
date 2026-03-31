@@ -17,6 +17,19 @@ type LegacyButton = {
   url?: string;
 };
 
+type MigratedButton = {
+  _key?: string;
+  _type: "button";
+  text?: string;
+  variant: "default";
+  url: {
+    _type: "customUrl";
+    type: "external";
+    external: string;
+    openInNewTab: false;
+  };
+};
+
 type LegacySlug = {
   _type?: "slug";
   current?: string;
@@ -90,24 +103,55 @@ function normalizeSlug(slug?: LegacySlug): LegacySlug | undefined {
   };
 }
 
-function normalizeLegacyButton(button?: LegacyButton): LegacyButton | undefined {
-  if (!button?.text && !button?.url) {
+function normalizeLegacyUrl(url?: string): string | undefined {
+  const value = url?.trim();
+
+  if (!value) {
+    return undefined;
+  }
+
+  if (
+    value.startsWith("/") ||
+    value.startsWith("#") ||
+    value.startsWith("?")
+  ) {
+    return value;
+  }
+
+  try {
+    return new URL(value).toString();
+  } catch (_error) {
+    return `/${value}`;
+  }
+}
+
+function normalizeLegacyButton(button?: LegacyButton): MigratedButton | undefined {
+  const text = button?.text?.trim();
+  const external = normalizeLegacyUrl(button?.url);
+
+  if (!text && !external) {
     return undefined;
   }
 
   return {
-    _type: "legacyButton",
-    ...(button._key ? { _key: button._key } : {}),
-    ...(button.text ? { text: button.text } : {}),
-    ...(button.url ? { url: button.url } : {}),
+    _type: "button",
+    ...(button?._key ? { _key: button._key } : {}),
+    ...(text ? { text } : {}),
+    variant: "default",
+    url: {
+      _type: "customUrl",
+      type: "external",
+      external: external ?? "#",
+      openInNewTab: false,
+    },
   };
 }
 
-function normalizeLegacyButtons(value: unknown): LegacyButton[] | undefined {
+function normalizeLegacyButtons(value: unknown): MigratedButton[] | undefined {
   if (Array.isArray(value)) {
     const buttons = value
       .map((button) => normalizeLegacyButton(button as LegacyButton))
-      .filter(Boolean) as LegacyButton[];
+      .filter(Boolean) as MigratedButton[];
 
     return buttons.length ? buttons : undefined;
   }
@@ -127,13 +171,16 @@ function migrateSection(section: LegacySection): SanityRecord {
     const buttons = normalizeLegacyButtons(section.button1);
 
     if (buttons) {
-      migratedSection.button1 = buttons;
+      migratedSection.buttons = buttons;
     }
   }
 
   if (section._type === "ctaSection") {
     const buttons = normalizeLegacyButtons(section.button1);
-    migratedSection.button1 = buttons?.[0];
+
+    if (buttons) {
+      migratedSection.buttons = buttons;
+    }
   }
 
   return migratedSection;

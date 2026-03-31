@@ -1,5 +1,7 @@
 import { DocumentsIcon } from "@sanity/icons";
-import { defineArrayMember, defineField, defineType } from "sanity";
+import { defineField, defineType } from "sanity";
+
+import { buttonsField } from "@/schemaTypes/common";
 
 export const legacyMagSection = defineType({
   name: "legacyMagSection",
@@ -15,12 +17,7 @@ export const legacyMagSection = defineType({
     defineField({ name: "text", type: "legacyPortableText", title: "Text" }),
     defineField({ name: "image", type: "bgImage", title: "Image" }),
     defineField({ name: "video", type: "url", title: "Video URL" }),
-    defineField({
-      name: "button1",
-      title: "Legacy Buttons",
-      type: "array",
-      of: [defineArrayMember({ type: "legacyButton" })],
-    }),
+    buttonsField,
   ],
   preview: {
     select: {

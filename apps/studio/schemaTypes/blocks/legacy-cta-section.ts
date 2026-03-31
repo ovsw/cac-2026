@@ -1,6 +1,8 @@
 import { DocumentsIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
+import { buttonsField } from "@/schemaTypes/common";
+
 export const legacyCtaSection = defineType({
   name: "legacyCtaSection",
   title: "Legacy Migration: CTA Section",
@@ -12,11 +14,7 @@ export const legacyCtaSection = defineType({
     defineField({ name: "title", type: "string", title: "Title" }),
     defineField({ name: "subtitle", type: "string", title: "Subtitle" }),
     defineField({ name: "text", type: "legacyPortableText", title: "Text" }),
-    defineField({
-      name: "button1",
-      type: "legacyButton",
-      title: "Legacy Button",
-    }),
+    buttonsField,
   ],
   preview: {
     select: {
