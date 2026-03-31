@@ -77,6 +77,19 @@ function normalizeImage(image?: SanityImage): SanityImage | undefined {
   };
 }
 
+function normalizeSlug(slug?: LegacySlug): LegacySlug | undefined {
+  const current = slug?.current?.trim();
+
+  if (!current) {
+    return undefined;
+  }
+
+  return {
+    _type: "slug",
+    current: current.startsWith("/") ? current : `/${current}`,
+  };
+}
+
 function normalizeLegacyButton(button?: LegacyButton): LegacyButton | undefined {
   if (!button?.text && !button?.url) {
     return undefined;
@@ -145,8 +158,9 @@ export default defineMigration({
         patches.push(at("title", setIfMissing(legacyContent.title)));
       }
 
-      if (!page.slug?.current && legacyContent.slug?.current) {
-        patches.push(at("slug", setIfMissing(legacyContent.slug)));
+      const normalizedSlug = normalizeSlug(legacyContent.slug);
+      if (!page.slug?.current && normalizedSlug) {
+        patches.push(at("slug", setIfMissing(normalizedSlug)));
       }
 
       const normalizedHeaderImage = normalizeImage(legacyContent.headerImage);
