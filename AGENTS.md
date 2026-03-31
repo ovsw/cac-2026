@@ -12,6 +12,9 @@ Do not assume the sandbox starts in the repository root.
 Sanity project ID: "lwnx6aqb"
 Sanity dataset: "development"
 
+for sanity migrations the correct CLI command format to give to the user so they can run them is:
+`pnpm exec sanity migration run <migration-name> --project lwnx6aqb --dataset development --no-dry-run`
+
 # Project Overview
 
 Turbo Start Sanity — a pnpm monorepo (Turborepo) with a Next.js 16 frontend and Sanity v5 CMS Studio. Uses Biome/Ultracite for linting/formatting.
