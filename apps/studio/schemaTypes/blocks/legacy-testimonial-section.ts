@@ -7,7 +7,7 @@ export const legacyTestimonialSection = defineType({
   type: "object",
   icon: DocumentsIcon,
   description:
-    "Compatibility block generated from legacy CAC page sections during migration.",
+    "Legacy compatibility block for a migrated single testimonial section from the previous CAC page builder.",
   fields: [
     defineField({ name: "title", type: "string", title: "Title" }),
     defineField({
@@ -24,7 +24,7 @@ export const legacyTestimonialSection = defineType({
     },
     prepare: ({ title }) => ({
       title: title || "Untitled Legacy Testimonial Section",
-      subtitle: "Legacy migration block",
+      subtitle: "Legacy Testimonial Section",
     }),
   },
 });

@@ -7,7 +7,7 @@ export const legacyTestimonialsSection = defineType({
   type: "object",
   icon: DocumentsIcon,
   description:
-    "Compatibility block generated from legacy CAC page sections during migration.",
+    "Legacy compatibility block for a migrated testimonials section from the previous CAC page builder.",
   fields: [
     defineField({ name: "title", type: "string", title: "Title" }),
     defineField({

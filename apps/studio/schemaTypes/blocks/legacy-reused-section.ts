@@ -7,7 +7,7 @@ export const legacyReusedSection = defineType({
   type: "object",
   icon: DocumentsIcon,
   description:
-    "Compatibility block generated from legacy CAC page sections during migration.",
+    "Legacy compatibility block for a migrated reused section reference from the previous CAC page builder.",
   fields: [
     defineField({
       name: "reusableSection",
@@ -23,7 +23,7 @@ export const legacyReusedSection = defineType({
     },
     prepare: ({ title }) => ({
       title: title || "Untitled Legacy Reused Section",
-      subtitle: "Legacy migration block",
+      subtitle: "Legacy Reused Section",
     }),
   },
 });

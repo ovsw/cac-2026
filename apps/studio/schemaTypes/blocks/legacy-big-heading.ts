@@ -7,7 +7,7 @@ export const legacyBigHeading = defineType({
   type: "object",
   icon: DocumentsIcon,
   description:
-    "Compatibility block generated from legacy CAC page sections during migration.",
+    "Legacy compatibility block for a migrated big heading section from the previous CAC page builder.",
   fields: [defineField({ name: "title", type: "string", title: "Title" })],
   preview: {
     select: {
@@ -15,7 +15,7 @@ export const legacyBigHeading = defineType({
     },
     prepare: ({ title }) => ({
       title: title || "Untitled Legacy Heading",
-      subtitle: "Legacy migration block",
+      subtitle: "Legacy Big Heading",
     }),
   },
 });

@@ -7,7 +7,7 @@ export const legacyCtaSection = defineType({
   type: "object",
   icon: DocumentsIcon,
   description:
-    "Compatibility block generated from legacy CAC page sections during migration.",
+    "Legacy compatibility block for a migrated call-to-action section from the previous CAC page builder.",
   fields: [
     defineField({ name: "title", type: "string", title: "Title" }),
     defineField({ name: "subtitle", type: "string", title: "Subtitle" }),
@@ -25,7 +25,7 @@ export const legacyCtaSection = defineType({
     },
     prepare: ({ title, subtitle }) => ({
       title: title || "Untitled Legacy CTA Section",
-      subtitle: subtitle || "Legacy migration block",
+      subtitle: subtitle || "Legacy CTA Section",
     }),
   },
 });

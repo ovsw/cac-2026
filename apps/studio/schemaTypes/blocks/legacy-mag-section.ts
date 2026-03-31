@@ -7,7 +7,7 @@ export const legacyMagSection = defineType({
   type: "object",
   icon: DocumentsIcon,
   description:
-    "Compatibility block generated from legacy CAC page sections during migration.",
+    "Legacy compatibility block for a migrated magazine section from the previous CAC page builder.",
   fields: [
     defineField({ name: "eyebrow", type: "string", title: "Eyebrow" }),
     defineField({ name: "title", type: "string", title: "Title" }),
@@ -29,7 +29,7 @@ export const legacyMagSection = defineType({
     },
     prepare: ({ title, subtitle }) => ({
       title: title || "Untitled Legacy Magazine Section",
-      subtitle: subtitle || "Legacy migration block",
+      subtitle: subtitle || "Legacy Magazine Section",
     }),
   },
 });
