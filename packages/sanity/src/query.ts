@@ -511,6 +511,14 @@ export const queryFooterData = defineQuery(`
     _id,
     "subtitleLegacy": subtitle,
     ${footerSubtitleFragment},
+    logoLinks[]{
+      _key,
+      title,
+      externalLink,
+      image{
+        ${imageFields}
+      }
+    },
     legalLinks[]{
       _key,
       label,

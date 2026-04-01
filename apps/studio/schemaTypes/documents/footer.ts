@@ -1,4 +1,4 @@
-import { LinkIcon } from "@sanity/icons";
+import { ImageIcon, LinkIcon } from "@sanity/icons";
 import { LayoutPanelLeft, Link, PanelBottom } from "lucide-react";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
@@ -155,6 +155,54 @@ const footerLegalLink = defineField({
   },
 });
 
+const footerLogoLink = defineField({
+  name: "logoLink",
+  type: "object",
+  title: "Logo Link",
+  icon: ImageIcon,
+  fields: [
+    defineField({
+      name: "title",
+      type: "string",
+      title: "Title",
+      description: "Short label used to identify this logo in the CMS.",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "externalLink",
+      type: "url",
+      title: "External Link",
+      description:
+        "Full external URL the logo should open when clicked in the footer.",
+      validation: (rule) => rule.required().uri({ scheme: ["http", "https"] }),
+    }),
+    defineField({
+      name: "image",
+      type: "image",
+      title: "Logo",
+      description: "Upload the accreditation or membership logo.",
+      options: {
+        hotspot: true,
+      },
+      validation: (rule) => rule.required(),
+    }),
+  ],
+  preview: {
+    select: {
+      title: "title",
+      subtitle: "externalLink",
+      media: "image",
+    },
+    prepare({ title, subtitle, media }) {
+      return {
+        title: title || "Untitled Logo Link",
+        subtitle,
+        media,
+      };
+    },
+  },
+});
+
 export const footer = defineType({
   name: "footer",
   type: "document",
@@ -184,6 +232,14 @@ export const footer = defineType({
       description:
         "Links shown in the bottom-right legal area of the footer. Reorder them to control their display order.",
       of: [footerLegalLink],
+    }),
+    defineField({
+      name: "logoLinks",
+      type: "array",
+      title: "Logo Links",
+      description:
+        "Accreditation and membership logos shown in the footer. Reorder them to control their display order.",
+      of: [footerLogoLink],
     }),
   ],
   preview: {
