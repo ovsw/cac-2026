@@ -46,6 +46,13 @@ const markDefsFragment = /* groq */ `
   }
 `;
 
+const fileFragment = /* groq */ `
+  asset->{
+    url,
+    originalFilename
+  }
+`;
+
 const richTextFragment = /* groq */ `
   richText[]{
     ...,
@@ -56,6 +63,37 @@ const richTextFragment = /* groq */ `
     _type == "image" => {
       ${imageFields},
       "caption": caption
+    }
+  }
+`;
+
+const longRichTextFragment = /* groq */ `
+  richText[]{
+    ...,
+    _type == "block" => {
+      ...,
+      ${markDefsFragment}
+    },
+    _type == "image" => {
+      ${imageFields},
+      "caption": caption
+    },
+    _type == "longRichTextFile" => {
+      ...,
+      ${fileFragment}
+    },
+    _type == "youtubeEmbed" => {
+      ...
+    },
+    _type == "iframeEmbed" => {
+      ...
+    },
+    _type == "longRichTextTable" => {
+      ...,
+      rows[]{
+        ...,
+        cells[]
+      }
     }
   }
 `;
@@ -199,6 +237,13 @@ const richTextBlockFragment = /* groq */ `
   }
 `;
 
+const longRichTextSectionBlock = /* groq */ `
+  _type == "longRichTextSection" => {
+    ...,
+    ${longRichTextFragment}
+  }
+`;
+
 const legacyMagSectionBlock = /* groq */ `
   _type == "legacyMagSection" => {
     ...,
@@ -268,6 +313,7 @@ const embeddedReusableSectionPageBuilderFragment = /* groq */ `
     ${subscribeNewsletterBlock},
     ${imageLinkCardsBlock},
     ${richTextBlockFragment},
+    ${longRichTextSectionBlock},
     ${legacyMagSectionBlock},
     ${legacyCtaSectionBlock},
     ${legacyBigHeadingBlock},
@@ -313,6 +359,7 @@ const pageBuilderFragment = /* groq */ `
     ${subscribeNewsletterBlock},
     ${imageLinkCardsBlock},
     ${richTextBlockFragment},
+    ${longRichTextSectionBlock},
     ${reusableSectionReferenceBlock},
     ${legacyMagSectionBlock},
     ${legacyCtaSectionBlock},

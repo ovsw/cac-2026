@@ -24,6 +24,7 @@ import {
   LegacyTestimonialSectionBlock,
   LegacyTestimonialsSectionBlock,
 } from "./sections/legacy-page-builder";
+import { LongRichTextSection } from "./sections/long-rich-text-section";
 import { RichTextBlock } from "./sections/rich-text-block";
 import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
 
@@ -87,6 +88,7 @@ const BLOCK_COMPONENTS = {
   subscribeNewsletter: SubscribeNewsletter,
   imageLinkCards: ImageLinkCards,
   richTextBlock: RichTextBlock,
+  longRichTextSection: LongRichTextSection,
   reusableSectionReference: ReusableSectionReferenceBlock,
   legacyMagSection: LegacyMagSectionBlock,
   legacyCtaSection: LegacyCtaSectionBlock,

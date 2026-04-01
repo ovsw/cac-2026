@@ -45,6 +45,11 @@ export type SanityImageProps = NonNullable<QueryImageTypeResult>;
 
 export type SanityRichTextProps = Get<QueryBlogSlugPageDataResult, "richText">;
 
+export type LongFormRichTextProps = Get<
+  PagebuilderType<"longRichTextSection">,
+  "richText"
+>;
+
 export type SanityRichTextBlock = FilterByType<
   NonNullable<NonNullable<SanityRichTextProps>[number]>,
   "block"
