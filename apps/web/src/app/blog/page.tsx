@@ -70,11 +70,16 @@ export default async function BlogIndexPage({ searchParams }: BlogPageProps) {
     notFound();
   }
 
+  const fallbackPageBuilder = Array.isArray(indexPageData.pageBuilder)
+    ? indexPageData.pageBuilder
+    : [];
+
   if (errTotalCount || totalCount === null || totalCount === undefined) {
     return (
       <main className="container mx-auto my-16 px-4 md:px-6">
         <BlogHeader
           description={indexPageData.description}
+          headerImage={indexPageData.headerImage}
           title={indexPageData.title}
         />
         <div className="py-12 text-center">
@@ -82,10 +87,10 @@ export default async function BlogIndexPage({ searchParams }: BlogPageProps) {
             Unable to load blog posts at the moment.
           </p>
         </div>
-        {indexPageData.pageBuilder && indexPageData.pageBuilder.length > 0 && (
+        {fallbackPageBuilder.length > 0 && (
           <PageBuilder
             id={indexPageData._id}
-            pageBuilder={indexPageData.pageBuilder}
+            pageBuilder={fallbackPageBuilder}
             type={indexPageData._type}
           />
         )}
@@ -115,6 +120,7 @@ export default async function BlogIndexPage({ searchParams }: BlogPageProps) {
       <main className="container mx-auto my-16 px-4 md:px-6">
         <BlogHeader
           description={indexPageData.description}
+          headerImage={indexPageData.headerImage}
           title={indexPageData.title}
         />
         <div className="py-12 text-center">
@@ -122,10 +128,10 @@ export default async function BlogIndexPage({ searchParams }: BlogPageProps) {
             No blog posts available at the moment.
           </p>
         </div>
-        {indexPageData.pageBuilder && indexPageData.pageBuilder.length > 0 && (
+        {fallbackPageBuilder.length > 0 && (
           <PageBuilder
             id={indexPageData._id}
-            pageBuilder={indexPageData.pageBuilder}
+            pageBuilder={fallbackPageBuilder}
             type={indexPageData._type}
           />
         )}

@@ -1,6 +1,10 @@
 import { defineField, defineType } from "sanity";
 
-import { documentSlugField, pageBuilderField } from "@/schemaTypes/common";
+import {
+  documentSlugField,
+  imageWithAltField,
+  pageBuilderField,
+} from "@/schemaTypes/common";
 import { GROUP, GROUPS } from "@/utils/constant";
 import { ogFields } from "@/utils/og-fields";
 import { seoFields } from "@/utils/seo-fields";
@@ -28,6 +32,13 @@ export const blogIndex = defineType({
       group: GROUP.MAIN_CONTENT,
     }),
     documentSlugField("blogIndex", {
+      group: GROUP.MAIN_CONTENT,
+    }),
+    imageWithAltField({
+      name: "headerImage",
+      title: "Header Image",
+      description:
+        "An optional image that appears with the intro at the top of the blog listing page",
       group: GROUP.MAIN_CONTENT,
     }),
     defineField({

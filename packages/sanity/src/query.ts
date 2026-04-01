@@ -412,6 +412,9 @@ export const queryBlogIndexPageData = defineQuery(`
     _type,
     title,
     description,
+    "headerImage": headerImage{
+      ${imageFields}
+    },
     "displayFeaturedBlogs" : displayFeaturedBlogs == "yes",
     "featuredBlogsCount" : featuredBlogsCount,
     ${pageBuilderFragment},

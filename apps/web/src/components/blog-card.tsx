@@ -1,3 +1,4 @@
+import type { QueryBlogIndexPageDataResult } from "@workspace/sanity/types";
 import Link from "next/link";
 
 import type { Blog } from "@/types";
@@ -164,9 +165,11 @@ export function BlogCard({ blog }: BlogCardProps) {
 export function BlogHeader({
   title,
   description,
+  headerImage,
 }: {
   title: string | null;
   description: string | null;
+  headerImage?: NonNullable<QueryBlogIndexPageDataResult>["headerImage"];
 }) {
   return (
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -176,6 +179,17 @@ export function BlogHeader({
           {description}
         </p>
       </div>
+      {headerImage?.id ? (
+        <div className="mx-auto mt-10 max-w-5xl overflow-hidden rounded-3xl">
+          <SanityImage
+            alt={headerImage.alt ?? title ?? "Blog listing header image"}
+            className="aspect-[16/7] w-full object-cover"
+            height={700}
+            image={headerImage}
+            width={1600}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
