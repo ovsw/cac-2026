@@ -9,6 +9,8 @@ import type {
 } from "@workspace/sanity/types";
 import Link from "next/link";
 
+import type { FooterSubtitleRichTextProps } from "@/types";
+import { RichText } from "./elements/rich-text";
 import { Logo } from "./logo";
 import {
   FacebookIcon,
@@ -149,9 +151,30 @@ export function FooterSkeleton() {
 }
 
 function Footer({ data, settingsData }: FooterProps) {
-  const { subtitle, columns } = data;
+  const { subtitleLegacy, subtitlePortableText, legalLinks, columns } = data;
   const { siteTitle, logo, socialLinks } = settingsData;
   const year = new Date().getFullYear();
+  const subtitleContent: FooterSubtitleRichTextProps =
+    subtitlePortableText && subtitlePortableText.length > 0
+      ? subtitlePortableText
+      : subtitleLegacy
+        ? [
+            {
+              _key: "legacy-footer-subtitle",
+              _type: "block",
+              children: [
+                {
+                  _key: "legacy-footer-subtitle-span",
+                  _type: "span",
+                  marks: [],
+                  text: subtitleLegacy,
+                },
+              ],
+              markDefs: [],
+              style: "normal",
+            },
+          ]
+        : null;
 
   return (
     <footer className="mt-20 pb-8">
@@ -163,10 +186,11 @@ function Footer({ data, settingsData }: FooterProps) {
                 <span className="flex items-center justify-center gap-4 lg:justify-start">
                   <Logo alt={siteTitle} image={logo} priority />
                 </span>
-                {subtitle && (
-                  <p className="mt-6 text-muted-foreground text-sm dark:text-zinc-400">
-                    {subtitle}
-                  </p>
+                {subtitleContent && (
+                  <RichText
+                    className="mt-6 text-muted-foreground text-sm dark:text-zinc-400 prose-p:my-0 prose-p:text-inherit prose-a:text-inherit"
+                    richText={subtitleContent}
+                  />
                 )}
               </div>
               {socialLinks && <SocialLinks data={socialLinks} />}
@@ -208,14 +232,26 @@ function Footer({ data, settingsData }: FooterProps) {
               <p>
                 © {year} {siteTitle}. All rights reserved.
               </p>
-              <ul className="flex justify-center gap-4 lg:justify-start">
-                <li className="hover:text-primary">
-                  <Link href="/terms">Terms and Conditions</Link>
-                </li>
-                <li className="hover:text-primary">
-                  <Link href="/privacy">Privacy Policy</Link>
-                </li>
-              </ul>
+              {legalLinks && legalLinks.length > 0 && (
+                <ul className="flex justify-center gap-4 lg:justify-start">
+                  {legalLinks.map((link, index) => (
+                    <li
+                      className="hover:text-primary"
+                      key={`${link._key}-${index.toString()}`}
+                    >
+                      <Link
+                        href={link.href ?? "#"}
+                        rel={
+                          link.openInNewTab ? "noopener noreferrer" : undefined
+                        }
+                        target={link.openInNewTab ? "_blank" : undefined}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>

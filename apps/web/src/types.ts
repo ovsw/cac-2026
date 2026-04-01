@@ -2,6 +2,7 @@ import type { FilterByType, Get } from "@sanity/codegen";
 import type {
   QueryBlogIndexPageBlogsResult,
   QueryBlogSlugPageDataResult,
+  QueryFooterDataResult,
   QueryGlobalSeoSettingsResult,
   QueryHomePageDataResult,
   QueryImageTypeResult,
@@ -48,6 +49,11 @@ export type SanityRichTextProps = Get<QueryBlogSlugPageDataResult, "richText">;
 export type LongFormRichTextProps = Get<
   PagebuilderType<"longRichTextSection">,
   "richText"
+>;
+
+export type FooterSubtitleRichTextProps = Get<
+  QueryFooterDataResult,
+  "subtitlePortableText"
 >;
 
 export type SanityRichTextBlock = FilterByType<

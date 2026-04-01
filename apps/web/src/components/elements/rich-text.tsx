@@ -4,7 +4,11 @@ import Link from "next/link";
 import { PortableText, type PortableTextReactComponents } from "next-sanity";
 import type { HTMLAttributeReferrerPolicy } from "react";
 
-import type { LongFormRichTextProps, SanityRichTextProps } from "@/types";
+import type {
+  FooterSubtitleRichTextProps,
+  LongFormRichTextProps,
+  SanityRichTextProps,
+} from "@/types";
 import { parseChildrenToSlug } from "@/utils";
 import { SanityImage } from "./sanity-image";
 
@@ -463,7 +467,11 @@ export function RichText({
   richText,
   className,
 }: {
-  richText?: SanityRichTextProps | LongFormRichTextProps | null;
+  richText?:
+    | SanityRichTextProps
+    | LongFormRichTextProps
+    | FooterSubtitleRichTextProps
+    | null;
   className?: string;
 }) {
   if (!richText) {

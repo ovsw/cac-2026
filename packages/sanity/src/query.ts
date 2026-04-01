@@ -46,6 +46,16 @@ const markDefsFragment = /* groq */ `
   }
 `;
 
+const footerSubtitleFragment = /* groq */ `
+  subtitlePortableText[]{
+    ...,
+    _type == "block" => {
+      ...,
+      ${markDefsFragment}
+    }
+  }
+`;
+
 const fileFragment = /* groq */ `
   asset->{
     url,
@@ -499,7 +509,18 @@ export const queryGenericPageOGData = defineQuery(`
 export const queryFooterData = defineQuery(`
   *[_type == "footer" && _id == "footer"][0]{
     _id,
-    subtitle,
+    "subtitleLegacy": subtitle,
+    ${footerSubtitleFragment},
+    legalLinks[]{
+      _key,
+      label,
+      "openInNewTab": url.openInNewTab,
+      "href": select(
+        url.type == "internal" => url.internal->slug.current,
+        url.type == "external" => url.external,
+        url.href
+      ),
+    },
     columns[]{
       _key,
       title,
