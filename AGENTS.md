@@ -148,3 +148,22 @@ All frontend types derive from generated Sanity types. `apps/web/src/types.ts` e
 - Node >= 22 required
 - pnpm 10.28.0 (corepack)
 - Turborepo handles task orchestration — `transit` task runs before lint/format/check-types
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in GitHub Issues for this repository. See
+`docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The repo uses the default five triage labels: `needs-triage`,
+`needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. See
+`docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This repo uses a multi-context domain-doc layout with a root
+`CONTEXT-MAP.md` and per-context `CONTEXT.md` and ADRs where present.
+See `docs/agents/domain.md`.
