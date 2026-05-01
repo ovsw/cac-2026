@@ -1,6 +1,11 @@
 import { Badge } from "@workspace/ui/components/badge";
+import { Hero118 } from "@workspace/ui/components/hero118";
+import { cn } from "@workspace/ui/lib/utils";
 
 import type { PagebuilderType } from "@/types";
+import { RichText } from "../elements/rich-text";
+import { SanityButtons } from "../elements/sanity-buttons";
+import { SanityImage } from "../elements/sanity-image";
 
 type LegacyMagSectionProps = PagebuilderType<"legacyMagSection">;
 type LegacyCtaSectionProps = PagebuilderType<"legacyCtaSection">;
@@ -11,6 +16,10 @@ type LegacyTestimonialSectionProps =
 type LegacyTestimonialsSectionProps =
   PagebuilderType<"legacyTestimonialsSection">;
 type LegacyReusedSectionProps = PagebuilderType<"legacyReusedSection">;
+
+type LegacyMagazineSectionProps = LegacyMagSectionProps & {
+  readonly blockIndex?: number;
+};
 
 function LegacyShell({
   title,
@@ -45,16 +54,16 @@ export function LegacyMagSectionBlock({
   title,
   subtitle,
   eyebrow,
+  text,
   image,
-}: LegacyMagSectionProps) {
+  buttons,
+  blockIndex = 0,
+}: LegacyMagazineSectionProps) {
+  const isImageFirst = blockIndex % 2 !== 0;
+  const hasAlternateBackground = blockIndex % 2 === 0;
+
   return (
-    <LegacyShell eyebrow={eyebrow} subtitle={subtitle} title={title}>
-      <div className="rounded-3xl bg-muted p-6 text-muted-foreground text-sm">
-        {image?.asset
-          ? "Legacy image and portable-text content were preserved in the migrated block and need a dedicated frontend pass."
-          : "Legacy portable-text content was preserved in the migrated block and needs a dedicated frontend pass."}
-      </div>
-    </LegacyShell>
+    <Hero118 />
   );
 }
 

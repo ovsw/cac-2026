@@ -257,6 +257,7 @@ const longRichTextSectionBlock = /* groq */ `
 const legacyMagSectionBlock = /* groq */ `
   _type == "legacyMagSection" => {
     ...,
+    ${imageFragment},
     ${buttonsFragment},
     ${legacyRichTextFragment}
   }
