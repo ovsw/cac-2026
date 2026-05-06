@@ -107,7 +107,7 @@ const Hero118 = ({ className }: Hero118Props) => {
                       variant="secondary"
                       className="border-muted2 block h-fit w-full rounded-xl border px-5 py-3 text-center text-[0.9375rem] leading-normal font-medium xl:w-fit"
                     >
-                      <a href="#">Discover more</a>
+                      <a href="/">Discover more</a>
                     </Button>
                   </div>
                   <div className="w-full flex-1 xl:w-fit xl:flex-initial">
@@ -115,7 +115,7 @@ const Hero118 = ({ className }: Hero118Props) => {
                       asChild
                       className="group flex h-fit w-full items-center justify-center gap-1 rounded-xl py-3 pr-4 pl-5 text-[0.9375rem] leading-normal font-medium transition-all duration-300 hover:pr-7 xl:w-fit"
                     >
-                      <a href="#">
+                      <a href="/">
                         <div>Get early access</div>
                         <ArrowRight className="size-6! transition-transform duration-300 group-hover:translate-x-3" />
                       </a>
