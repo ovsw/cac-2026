@@ -31,10 +31,10 @@ export function Logo({
   const hasDarkVariant = Boolean(darkImage || darkSrc);
 
   return (
-    <Link className="inline-flex" href="/">
+    <Link className="inline-flex shrink-0 items-center overflow-visible" href="/">
       <LogoAsset
         alt={alt}
-        className={hasDarkVariant ? "dark:hidden" : undefined}
+        className={hasDarkVariant ? "block w-auto dark:hidden" : "block w-auto"}
         height={height}
         image={image}
         priority={priority}
@@ -44,7 +44,7 @@ export function Logo({
       {hasDarkVariant && (
         <LogoAsset
           alt={alt}
-          className="hidden dark:block"
+          className="hidden w-auto dark:block"
           height={height}
           image={darkImage}
           priority={priority}
@@ -75,30 +75,38 @@ function LogoAsset({
   priority,
   className,
 }: LogoAssetProps) {
-  if (image) {
-    return (
-      <SanityImage
-        alt={alt ?? "logo"}
-        className={className}
-        decoding="sync"
-        image={image}
-        loading="eager"
-        style={{ height, width }}
-      />
-    );
-  }
-
-  return (
+  const asset = image ? (
+    <SanityImage
+      alt={alt ?? "logo"}
+      decoding="sync"
+      image={image}
+      loading="eager"
+      style={{ height, width: "auto" }}
+    />
+  ) : (
     <Image
       alt={alt ?? "logo"}
-      className={className}
       decoding="sync"
       height={height}
       loading="eager"
       priority={priority}
       src={src ?? LOGO_URL}
-      style={{ height, width }}
+      style={{ height, width: "auto" }}
       width={width}
     />
   );
+
+  if (className) {
+    return (
+      <span className={className}>
+        {asset}
+      </span>
+    );
+  }
+
+  if (image) {
+    return asset;
+  }
+
+  return asset;
 }

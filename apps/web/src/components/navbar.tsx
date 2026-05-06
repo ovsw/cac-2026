@@ -167,12 +167,12 @@ export function Navbar({
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <div className="flex h-10 w-40 items-center">
+          <div className="flex h-full items-center overflow-visible">
             {logo && (
               <Logo
                 alt={siteTitle || ""}
                 darkImage={logoDarkMode}
-                height={40}
+                height={56}
                 image={logo}
                 priority
                 width={120}
