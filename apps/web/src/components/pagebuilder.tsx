@@ -3,14 +3,29 @@
 import { useOptimistic } from "@sanity/visual-editing/react";
 import { env } from "@workspace/env/client";
 import { createDataAttribute } from "next-sanity";
+import type { ComponentType } from "react";
 import { useCallback, useMemo } from "react";
 
-import type { PageBuilderBlock, PageBuilderBlockTypes } from "@/types";
+import type {
+  PageBuilderBlock,
+  PageBuilderBlockTypes,
+  PagebuilderType,
+  RenderablePageBuilderBlock,
+} from "@/types";
 import { CTABlock } from "./sections/cta";
 import { FaqAccordion } from "./sections/faq-accordion";
 import { FeatureCardsWithIcon } from "./sections/feature-cards-with-icon";
 import { HeroBlock } from "./sections/hero";
 import { ImageLinkCards } from "./sections/image-link-cards";
+import {
+  LegacyBigHeadingBlock,
+  LegacyCtaSectionBlock,
+  LegacyFaqSectionBlock,
+  LegacyMagSectionBlock,
+  LegacyTestimonialSectionBlock,
+  LegacyTestimonialsSectionBlock,
+} from "./sections/legacy-page-builder";
+import { LongRichTextSection } from "./sections/long-rich-text-section";
 import { RichTextBlock } from "./sections/rich-text-block";
 import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
 
@@ -26,6 +41,49 @@ type SanityDataAttributeConfig = {
   readonly path: string;
 };
 
+type ReusableSectionReferenceProps =
+  | PagebuilderType<"reusableSectionReference">
+  | PagebuilderType<"legacyReusedSection">;
+
+type PageBuilderBlockListProps = {
+  readonly blocks: RenderablePageBuilderBlock[];
+  readonly id: string;
+  readonly type: string;
+};
+
+type BlockRendererComponentProps = {
+  readonly blockIndex?: number;
+};
+
+function ReusableSectionReferenceBlock({
+  reusableSection,
+}: ReusableSectionReferenceProps) {
+  if (!reusableSection?._id || !reusableSection?._type) {
+    return null;
+  }
+
+  const nestedBlocks = reusableSection.pageBuilder ?? [];
+  const containerDataAttribute = createSanityDataAttribute({
+    id: reusableSection._id,
+    type: reusableSection._type,
+    path: "pageBuilder",
+  });
+
+  if (!nestedBlocks.length) {
+    return null;
+  }
+
+  return (
+    <div className="contents" data-sanity={containerDataAttribute}>
+      <PageBuilderBlockList
+        blocks={nestedBlocks}
+        id={reusableSection._id}
+        type={reusableSection._type}
+      />
+    </div>
+  );
+}
+
 // Strongly typed component mapping with proper component signatures
 const BLOCK_COMPONENTS = {
   cta: CTABlock,
@@ -35,6 +93,15 @@ const BLOCK_COMPONENTS = {
   subscribeNewsletter: SubscribeNewsletter,
   imageLinkCards: ImageLinkCards,
   richTextBlock: RichTextBlock,
+  longRichTextSection: LongRichTextSection,
+  reusableSectionReference: ReusableSectionReferenceBlock,
+  legacyMagSection: LegacyMagSectionBlock,
+  legacyCtaSection: LegacyCtaSectionBlock,
+  legacyBigHeading: LegacyBigHeadingBlock,
+  legacyFaqSection: LegacyFaqSectionBlock,
+  legacyTestimonialSection: LegacyTestimonialSectionBlock,
+  legacyTestimonialsSection: LegacyTestimonialsSectionBlock,
+  legacyReusedSection: ReusableSectionReferenceBlock,
   // biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering>
 } as const satisfies Record<PageBuilderBlockTypes, React.ComponentType<any>>;
 
@@ -83,11 +150,11 @@ function UnknownBlockError({
  * Hook to handle optimistic updates for page builder blocks
  */
 function useOptimisticPageBuilder(
-  initialBlocks: PageBuilderBlock[],
+  initialBlocks: RenderablePageBuilderBlock[],
   documentId: string
 ) {
   // biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering>
-  return useOptimistic<PageBuilderBlock[], any>(
+  return useOptimistic<RenderablePageBuilderBlock[], any>(
     initialBlocks,
     (currentBlocks, action) => {
       if (action.id === documentId && action.document?.pageBuilder) {
@@ -113,7 +180,7 @@ function useBlockRenderer(id: string, type: string) {
   );
 
   const renderBlock = useCallback(
-    (block: PageBuilderBlock, _index: number) => {
+    (block: RenderablePageBuilderBlock, index: number) => {
       const Component =
         BLOCK_COMPONENTS[block._type as keyof typeof BLOCK_COMPONENTS];
 
@@ -127,13 +194,19 @@ function useBlockRenderer(id: string, type: string) {
         );
       }
 
+      const DynamicComponent = Component as ComponentType<
+        Record<string, unknown> & BlockRendererComponentProps
+      >;
+
       return (
         <div
           data-sanity={createBlockDataAttribute(block._key)}
           key={`${block._type}-${block._key}`}
         >
-          {/** biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering> */}
-          <Component {...(block as any)} />
+          <DynamicComponent
+            {...block}
+            {...({ blockIndex: index } satisfies BlockRendererComponentProps)}
+          />
         </div>
       );
     },
@@ -141,6 +214,17 @@ function useBlockRenderer(id: string, type: string) {
   );
 
   return { renderBlock };
+}
+
+function PageBuilderBlockList({
+  blocks: initialBlocks,
+  id,
+  type,
+}: PageBuilderBlockListProps) {
+  const blocks = useOptimisticPageBuilder(initialBlocks, id);
+  const { renderBlock } = useBlockRenderer(id, type);
+
+  return <>{blocks.map(renderBlock)}</>;
 }
 
 /**
@@ -151,15 +235,12 @@ export function PageBuilder({
   id,
   type,
 }: PageBuilderProps) {
-  const blocks = useOptimisticPageBuilder(initialBlocks, id);
-  const { renderBlock } = useBlockRenderer(id, type);
-
   const containerDataAttribute = useMemo(
     () => createSanityDataAttribute({ id, type, path: "pageBuilder" }),
     [id, type]
   );
 
-  if (!blocks.length) {
+  if (!initialBlocks.length) {
     return null;
   }
 
@@ -168,7 +249,7 @@ export function PageBuilder({
       className="mx-auto my-16 flex max-w-7xl flex-col gap-16"
       data-sanity={containerDataAttribute}
     >
-      {blocks.map(renderBlock)}
+      <PageBuilderBlockList blocks={initialBlocks} id={id} type={type} />
     </main>
   );
 }

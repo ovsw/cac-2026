@@ -9,7 +9,9 @@ import type {
 } from "@workspace/sanity/types";
 import Link from "next/link";
 
-import { Logo } from "./logo";
+import type { FooterSubtitleRichTextProps } from "@/types";
+import { RichText } from "./elements/rich-text";
+import { SanityImage } from "./elements/sanity-image";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -105,9 +107,14 @@ export function FooterSkeleton() {
           <div className="flex flex-col items-center justify-between gap-10 text-center lg:flex-row lg:text-left">
             <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
               <div>
-                <span className="flex items-center justify-center gap-4 lg:justify-start">
-                  <div className="h-[40px] w-[80px] animate-pulse rounded bg-muted" />
-                </span>
+                <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+                  {[1, 2, 3].map((i) => (
+                    <div
+                      className="h-12 w-28 animate-pulse rounded bg-muted"
+                      key={i}
+                    />
+                  ))}
+                </div>
                 <div className="mt-6 h-16 w-full animate-pulse rounded bg-muted" />
               </div>
               <div className="flex items-center space-x-6">
@@ -149,9 +156,36 @@ export function FooterSkeleton() {
 }
 
 function Footer({ data, settingsData }: FooterProps) {
-  const { subtitle, columns } = data;
-  const { siteTitle, logo, socialLinks } = settingsData;
+  const {
+    subtitleLegacy,
+    subtitlePortableText,
+    legalLinks,
+    columns,
+    logoLinks,
+  } = data;
+  const { siteTitle, socialLinks } = settingsData;
   const year = new Date().getFullYear();
+  const subtitleContent: FooterSubtitleRichTextProps =
+    subtitlePortableText && subtitlePortableText.length > 0
+      ? subtitlePortableText
+      : subtitleLegacy
+        ? [
+            {
+              _key: "legacy-footer-subtitle",
+              _type: "block",
+              children: [
+                {
+                  _key: "legacy-footer-subtitle-span",
+                  _type: "span",
+                  marks: [],
+                  text: subtitleLegacy,
+                },
+              ],
+              markDefs: [],
+              style: "normal",
+            },
+          ]
+        : null;
 
   return (
     <footer className="mt-20 pb-8">
@@ -160,13 +194,44 @@ function Footer({ data, settingsData }: FooterProps) {
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-10 px-4 text-center md:px-6 lg:flex-row lg:text-left">
             <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 md:gap-8 lg:items-start">
               <div>
-                <span className="flex items-center justify-center gap-4 lg:justify-start">
-                  <Logo alt={siteTitle} image={logo} priority />
-                </span>
-                {subtitle && (
-                  <p className="mt-6 text-muted-foreground text-sm dark:text-zinc-400">
-                    {subtitle}
-                  </p>
+                {Array.isArray(logoLinks) && logoLinks.length > 0 && (
+                  <ul className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+                    {logoLinks.map((logoLink) => {
+                      if (!(logoLink?._key && logoLink.externalLink)) {
+                        return null;
+                      }
+
+                      return (
+                        <li key={logoLink._key}>
+                          <Link
+                            aria-label={logoLink.title ?? undefined}
+                            href={logoLink.externalLink}
+                            prefetch={false}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            {logoLink.image ? (
+                              <SanityImage
+                                alt={
+                                  logoLink.title ?? siteTitle ?? "Footer logo"
+                                }
+                                className="h-auto max-h-40 w-auto object-contain"
+                                decoding="async"
+                                image={logoLink.image}
+                                loading="lazy"
+                              />
+                            ) : null}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+                {subtitleContent && (
+                  <RichText
+                    className="mt-6 text-muted-foreground text-sm dark:text-zinc-400 prose-p:my-0 prose-p:text-inherit prose-a:text-inherit"
+                    richText={subtitleContent}
+                  />
                 )}
               </div>
               {socialLinks && <SocialLinks data={socialLinks} />}
@@ -208,14 +273,26 @@ function Footer({ data, settingsData }: FooterProps) {
               <p>
                 © {year} {siteTitle}. All rights reserved.
               </p>
-              <ul className="flex justify-center gap-4 lg:justify-start">
-                <li className="hover:text-primary">
-                  <Link href="/terms">Terms and Conditions</Link>
-                </li>
-                <li className="hover:text-primary">
-                  <Link href="/privacy">Privacy Policy</Link>
-                </li>
-              </ul>
+              {legalLinks && legalLinks.length > 0 && (
+                <ul className="flex justify-center gap-4 lg:justify-start">
+                  {legalLinks.map((link, index) => (
+                    <li
+                      className="hover:text-primary"
+                      key={`${link._key}-${index.toString()}`}
+                    >
+                      <Link
+                        href={link.href ?? "#"}
+                        rel={
+                          link.openInNewTab ? "noopener noreferrer" : undefined
+                        }
+                        target={link.openInNewTab ? "_blank" : undefined}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>

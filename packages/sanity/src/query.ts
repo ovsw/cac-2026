@@ -46,6 +46,23 @@ const markDefsFragment = /* groq */ `
   }
 `;
 
+const footerSubtitleFragment = /* groq */ `
+  subtitlePortableText[]{
+    ...,
+    _type == "block" => {
+      ...,
+      ${markDefsFragment}
+    }
+  }
+`;
+
+const fileFragment = /* groq */ `
+  asset->{
+    url,
+    originalFilename
+  }
+`;
+
 const richTextFragment = /* groq */ `
   richText[]{
     ...,
@@ -56,6 +73,47 @@ const richTextFragment = /* groq */ `
     _type == "image" => {
       ${imageFields},
       "caption": caption
+    }
+  }
+`;
+
+const longRichTextFragment = /* groq */ `
+  richText[]{
+    ...,
+    _type == "block" => {
+      ...,
+      ${markDefsFragment}
+    },
+    _type == "image" => {
+      ${imageFields},
+      "caption": caption
+    },
+    _type == "longRichTextFile" => {
+      ...,
+      ${fileFragment}
+    },
+    _type == "youtubeEmbed" => {
+      ...
+    },
+    _type == "iframeEmbed" => {
+      ...
+    },
+    _type == "longRichTextTable" => {
+      ...,
+      rows[]{
+        ...,
+        cells[]
+      }
+    }
+  }
+`;
+
+const legacyRichTextFragment = /* groq */ `
+  text[]{
+    ...,
+    _type == "block" => {
+      ...,
+      ${markDefsFragment}
     }
   }
 `;
@@ -189,6 +247,118 @@ const richTextBlockFragment = /* groq */ `
   }
 `;
 
+const longRichTextSectionBlock = /* groq */ `
+  _type == "longRichTextSection" => {
+    ...,
+    ${longRichTextFragment}
+  }
+`;
+
+const legacyMagSectionBlock = /* groq */ `
+  _type == "legacyMagSection" => {
+    ...,
+    ${imageFragment},
+    ${buttonsFragment},
+    ${legacyRichTextFragment}
+  }
+`;
+
+const legacyCtaSectionBlock = /* groq */ `
+  _type == "legacyCtaSection" => {
+    ...,
+    ${buttonsFragment},
+    ${legacyRichTextFragment}
+  }
+`;
+
+const legacyBigHeadingBlock = /* groq */ `
+  _type == "legacyBigHeading" => {
+    ...
+  }
+`;
+
+const legacyFaqSectionBlock = /* groq */ `
+  _type == "legacyFaqSection" => {
+    ...,
+    "faqItems": array::compact(faqItems[]->{
+      _id,
+      _type,
+      title,
+      ${richTextFragment}
+    })
+  }
+`;
+
+const legacyTestimonialSectionBlock = /* groq */ `
+  _type == "legacyTestimonialSection" => {
+    ...,
+    "testimonial": testimonial->{
+      _id,
+      _type,
+      author,
+      text
+    }
+  }
+`;
+
+const legacyTestimonialsSectionBlock = /* groq */ `
+  _type == "legacyTestimonialsSection" => {
+    ...,
+    "testimonialsList": array::compact(testimonialsList[]->{
+      _id,
+      _type,
+      author,
+      text
+    })
+  }
+`;
+
+const embeddedReusableSectionPageBuilderFragment = /* groq */ `
+  pageBuilder[]{
+    ...,
+    _type,
+    ${ctaBlock},
+    ${heroBlock},
+    ${faqAccordionBlock},
+    ${featureCardsIconBlock},
+    ${subscribeNewsletterBlock},
+    ${imageLinkCardsBlock},
+    ${richTextBlockFragment},
+    ${longRichTextSectionBlock},
+    ${legacyMagSectionBlock},
+    ${legacyCtaSectionBlock},
+    ${legacyBigHeadingBlock},
+    ${legacyFaqSectionBlock},
+    ${legacyTestimonialSectionBlock},
+    ${legacyTestimonialsSectionBlock}
+  }
+`;
+
+const reusableSectionProjection = /* groq */ `
+  _id,
+  _type,
+  title,
+  ${embeddedReusableSectionPageBuilderFragment}
+`;
+
+const reusableSectionReferenceBlock = /* groq */ `
+  _type == "reusableSectionReference" => {
+    ...,
+    "reusableSection": reusableSection->{
+      ${reusableSectionProjection}
+    }
+  }
+`;
+
+const legacyReusedSectionBlock = /* groq */ `
+  _type == "legacyReusedSection" => {
+    ...,
+    "reusableSection": reusableSection->{
+      ${reusableSectionProjection}
+    }
+  }
+`;
+
 const pageBuilderFragment = /* groq */ `
   pageBuilder[]{
     ...,
@@ -199,7 +369,16 @@ const pageBuilderFragment = /* groq */ `
     ${featureCardsIconBlock},
     ${subscribeNewsletterBlock},
     ${imageLinkCardsBlock},
-    ${richTextBlockFragment}
+    ${richTextBlockFragment},
+    ${longRichTextSectionBlock},
+    ${reusableSectionReferenceBlock},
+    ${legacyMagSectionBlock},
+    ${legacyCtaSectionBlock},
+    ${legacyBigHeadingBlock},
+    ${legacyFaqSectionBlock},
+    ${legacyTestimonialSectionBlock},
+    ${legacyTestimonialsSectionBlock},
+    ${legacyReusedSectionBlock}
   }
 `;
 
@@ -244,6 +423,9 @@ export const queryBlogIndexPageData = defineQuery(`
     _type,
     title,
     description,
+    "headerImage": headerImage{
+      ${imageFields}
+    },
     "displayFeaturedBlogs" : displayFeaturedBlogs == "yes",
     "featuredBlogsCount" : featuredBlogsCount,
     ${pageBuilderFragment},
@@ -328,7 +510,26 @@ export const queryGenericPageOGData = defineQuery(`
 export const queryFooterData = defineQuery(`
   *[_type == "footer" && _id == "footer"][0]{
     _id,
-    subtitle,
+    "subtitleLegacy": subtitle,
+    ${footerSubtitleFragment},
+    logoLinks[]{
+      _key,
+      title,
+      externalLink,
+      image{
+        ${imageFields}
+      }
+    },
+    legalLinks[]{
+      _key,
+      label,
+      "openInNewTab": url.openInNewTab,
+      "href": select(
+        url.type == "internal" => url.internal->slug.current,
+        url.type == "external" => url.external,
+        url.href
+      ),
+    },
     columns[]{
       _key,
       title,

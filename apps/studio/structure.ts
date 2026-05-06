@@ -9,6 +9,7 @@ import {
   MessageCircle,
   PanelBottom,
   PanelBottomIcon,
+  Quote,
   Settings2,
   TrendingUpDown,
   User,
@@ -111,6 +112,12 @@ export const structure = (
       createSingleTon({ S, type: "homePage", icon: HomeIcon }),
       S.divider(),
       createSlugBasedStructure(S, "page"),
+      createList({
+        S,
+        type: "reusableSection",
+        title: "Reusable Sections",
+        icon: File,
+      }),
       createIndexListWithOrderableItems({
         S,
         index: { type: "blogIndex", icon: BookMarked },
@@ -124,6 +131,12 @@ export const structure = (
         icon: MessageCircle,
       }),
       createList({ S, type: "author", title: "Authors", icon: User }),
+      createList({
+        S,
+        type: "testimonial",
+        title: "Testimonials",
+        icon: Quote,
+      }),
       createList({
         S,
         type: "redirect",

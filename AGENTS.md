@@ -1,8 +1,50 @@
-# CLAUDE.md
+# Important Tool Use Notes
+## Working directory for context-mode tools
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+`mcp__context-mode__ctx_batch_execute` and `mcp__context-mode__ctx_execute` may not inherit the desktop thread cwd reliably.
+When using them for repo inspection, always start each command with:
 
-## Project Overview
+`cd /Users/ovs/Work/Dev/cac/cac-2026 && ...`
+
+Do not assume the sandbox starts in the repository root.
+
+## File existence and context-mode guardrails
+
+Do not infer that a file is missing from a `ctx_batch_execute` or
+`ctx_search` retrieval miss.
+
+- A search result of "No matching sections found" is **not** proof that a
+  file does not exist.
+- Treat `ctx_batch_execute` command output as the source of truth for file
+  inventory questions.
+- Use search results to locate relevant content within gathered output, not to
+  prove file absence.
+
+When the question is whether a file exists, use an explicit existence check
+first, such as:
+
+- `test -f /absolute/path/to/file`
+- `rg --files /absolute/path/to/root | rg '(^|/)filename$'`
+- `find /absolute/path/to/root -name 'filename'`
+
+Before creating, replacing, or overwriting any file that may already exist:
+
+1. Perform an explicit existence check.
+2. If the file exists, read its current contents first.
+3. Only then edit it with a targeted change.
+
+This rule is mandatory for repo control files and instruction files, including
+`AGENTS.md`, `README.md`, `package.json`, CI configs, and other root-level
+configuration.
+
+## Sanity Project Info for Sanity MCP and CLI
+Sanity project ID: "lwnx6aqb"
+Sanity dataset: "development"
+
+for sanity migrations the correct CLI command format to give to the user so they can run them is:
+`pnpm exec sanity migration run <migration-name> --project lwnx6aqb --dataset development --no-dry-run`
+
+# Project Overview
 
 Turbo Start Sanity — a pnpm monorepo (Turborepo) with a Next.js 16 frontend and Sanity v5 CMS Studio. Uses Biome/Ultracite for linting/formatting.
 
@@ -69,6 +111,7 @@ The core content model is a **page builder** — an array of typed blocks:
 - **Block components**: `apps/web/src/components/sections/` — one file per block type (hero, cta, faq-accordion, etc.)
 
 To add a new page builder block:
+
 1. Create schema in `apps/studio/schemaTypes/blocks/new-block.ts`
 2. Add to `apps/studio/schemaTypes/blocks/index.ts` array
 3. Run `pnpm type` in studio
@@ -104,28 +147,52 @@ All frontend types derive from generated Sanity types. `apps/web/src/types.ts` e
 ## Conventions
 
 ### File Naming
+
 - **kebab-case** for all files: `feature-cards-icon.ts`, `blog-card.tsx`
 - `.tsx` for React components, `.ts` for utilities
 
 ### Sanity Schema
+
 - Always use `defineType`, `defineField`, `defineArrayMember` from `sanity`
 - Include `description` on every field (written for non-technical users)
 - Icons: prefer `@sanity/icons`, fall back to `lucide-react`
 - GROQ: don't expand images unless explicitly needed. Use `defineQuery` from `next-sanity`
 
 ### Frontend
+
 - Prefer `grid` over `flex` unless two sibling elements
 - Use `SanityImage` component for Sanity images (from `sanity-image` library)
 - Use `SanityButtons` resolver for button arrays
 - Shared UI components in `@workspace/ui` (Radix + CVA pattern)
 
 ### Formatting (Biome)
+
 - Double quotes, semicolons, trailing commas (ES5), 2-space indent, 80 char line width
 - Import ordering: node/packages → blank line → aliases/paths
 - `noConsole: warn`, `noExplicitAny: warn`
 - Use `@workspace/logger` Logger class instead of raw `console.*`
 
 ### Node/Runtime
+
 - Node >= 22 required
 - pnpm 10.28.0 (corepack)
 - Turborepo handles task orchestration — `transit` task runs before lint/format/check-types
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in GitHub Issues for this repository. See
+`docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The repo uses the default five triage labels: `needs-triage`,
+`needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. See
+`docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This repo uses a multi-context domain-doc layout with a root
+`CONTEXT-MAP.md` and per-context `CONTEXT.md` and ADRs where present.
+See `docs/agents/domain.md`.

@@ -40,3 +40,12 @@ npm-debug.log*
 
 # Claude
 .claude/settings.local.json
+
+# reference
+reference/
+.codex/
+
+# local backups
+apps/studio/backups
+
+docs/

@@ -2,6 +2,7 @@ import type { FilterByType, Get } from "@sanity/codegen";
 import type {
   QueryBlogIndexPageBlogsResult,
   QueryBlogSlugPageDataResult,
+  QueryFooterDataResult,
   QueryGlobalSeoSettingsResult,
   QueryHomePageDataResult,
   QueryImageTypeResult,
@@ -13,6 +14,24 @@ export type PageBuilderBlock = Get<
   "pageBuilder",
   number
 >;
+
+export type ReusableSectionPageBuilderBlock =
+  | Get<
+      PagebuilderType<"reusableSectionReference">,
+      "reusableSection",
+      "pageBuilder",
+      number
+    >
+  | Get<
+      PagebuilderType<"legacyReusedSection">,
+      "reusableSection",
+      "pageBuilder",
+      number
+    >;
+
+export type RenderablePageBuilderBlock =
+  | PageBuilderBlock
+  | ReusableSectionPageBuilderBlock;
 
 export type PageBuilderBlockTypes = NonNullable<PageBuilderBlock>["_type"];
 
@@ -26,6 +45,16 @@ export type SanityButtonProps = Get<PagebuilderType<"hero">, "buttons", number>;
 export type SanityImageProps = NonNullable<QueryImageTypeResult>;
 
 export type SanityRichTextProps = Get<QueryBlogSlugPageDataResult, "richText">;
+
+export type LongFormRichTextProps = Get<
+  PagebuilderType<"longRichTextSection">,
+  "richText"
+>;
+
+export type FooterSubtitleRichTextProps = Get<
+  QueryFooterDataResult,
+  "subtitlePortableText"
+>;
 
 export type SanityRichTextBlock = FilterByType<
   NonNullable<NonNullable<SanityRichTextProps>[number]>,

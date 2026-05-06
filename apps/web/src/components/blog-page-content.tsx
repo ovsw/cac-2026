@@ -26,6 +26,7 @@ export function BlogPageContent({
   const {
     title,
     description,
+    headerImage,
     pageBuilder = [],
     _id,
     _type,
@@ -57,7 +58,11 @@ export function BlogPageContent({
   return (
     <main className="bg-background">
       <div className="container mx-auto my-16 px-4 md:px-6">
-        <BlogHeader description={description} title={title} />
+        <BlogHeader
+          description={description}
+          headerImage={headerImage}
+          title={title}
+        />
 
         <SearchInput
           className="mt-8 mb-12"
@@ -95,7 +100,6 @@ export function BlogPageContent({
           </>
         )}
       </div>
-
       {pageBuilder && pageBuilder.length > 0 && (
         <PageBuilder id={_id} pageBuilder={pageBuilder} type={_type} />
       )}
