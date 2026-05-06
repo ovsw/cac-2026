@@ -155,7 +155,7 @@ export function Navbar({
   };
   const { navbarData, settingsData } = navigationData;
   const { columns, buttons } = navbarData || {};
-  const { logo, siteTitle } = settingsData || {};
+  const { logo, logoDarkMode, siteTitle } = settingsData || {};
 
   // Show skeleton only on initial mount when no fallback data is available
   if (isLoading && !data && !(initialNavbarData && initialSettingsData)) {
@@ -171,6 +171,7 @@ export function Navbar({
             {logo && (
               <Logo
                 alt={siteTitle || ""}
+                darkImage={logoDarkMode}
                 height={40}
                 image={logo}
                 priority

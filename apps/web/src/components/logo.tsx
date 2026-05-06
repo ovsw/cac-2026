@@ -9,7 +9,9 @@ const LOGO_URL =
 
 type LogoProps = {
   src?: Maybe<string>;
+  darkSrc?: Maybe<string>;
   image?: Maybe<SanityImageProps>;
+  darkImage?: Maybe<SanityImageProps>;
   alt?: Maybe<string>;
   width?: number;
   height?: number;
@@ -18,36 +20,85 @@ type LogoProps = {
 
 export function Logo({
   src,
+  darkSrc,
   alt = "logo",
   image,
+  darkImage,
   width = 170,
   height = 40,
   priority = true,
 }: LogoProps) {
+  const hasDarkVariant = Boolean(darkImage || darkSrc);
+
   return (
-    <Link className="" href="/">
-      {image ? (
-        <SanityImage
-          alt={alt ?? "logo"}
-          className="w-[170px] dark:invert"
-          // width={width}
-          // height={height}
-          decoding="sync"
-          image={image}
-          loading="eager"
-        />
-      ) : (
-        <Image
-          alt={alt ?? "logo"}
-          className="h-[40px] w-[170px] dark:invert"
-          decoding="sync"
+    <Link className="inline-flex" href="/">
+      <LogoAsset
+        alt={alt}
+        className={hasDarkVariant ? "dark:hidden" : undefined}
+        height={height}
+        image={image}
+        priority={priority}
+        src={src}
+        width={width}
+      />
+      {hasDarkVariant && (
+        <LogoAsset
+          alt={alt}
+          className="hidden dark:block"
           height={height}
-          loading="eager"
+          image={darkImage}
           priority={priority}
-          src={src ?? LOGO_URL}
+          src={darkSrc ?? src}
           width={width}
         />
       )}
     </Link>
+  );
+}
+
+type LogoAssetProps = {
+  src?: Maybe<string>;
+  image?: Maybe<SanityImageProps>;
+  alt?: Maybe<string>;
+  width: number;
+  height: number;
+  priority: boolean;
+  className?: string;
+};
+
+function LogoAsset({
+  src,
+  image,
+  alt,
+  width,
+  height,
+  priority,
+  className,
+}: LogoAssetProps) {
+  if (image) {
+    return (
+      <SanityImage
+        alt={alt ?? "logo"}
+        className={className}
+        decoding="sync"
+        image={image}
+        loading="eager"
+        style={{ height, width }}
+      />
+    );
+  }
+
+  return (
+    <Image
+      alt={alt ?? "logo"}
+      className={className}
+      decoding="sync"
+      height={height}
+      loading="eager"
+      priority={priority}
+      src={src ?? LOGO_URL}
+      style={{ height, width }}
+      width={width}
+    />
   );
 }
