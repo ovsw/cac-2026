@@ -8,6 +8,35 @@ When using them for repo inspection, always start each command with:
 
 Do not assume the sandbox starts in the repository root.
 
+## File existence and context-mode guardrails
+
+Do not infer that a file is missing from a `ctx_batch_execute` or
+`ctx_search` retrieval miss.
+
+- A search result of "No matching sections found" is **not** proof that a
+  file does not exist.
+- Treat `ctx_batch_execute` command output as the source of truth for file
+  inventory questions.
+- Use search results to locate relevant content within gathered output, not to
+  prove file absence.
+
+When the question is whether a file exists, use an explicit existence check
+first, such as:
+
+- `test -f /absolute/path/to/file`
+- `rg --files /absolute/path/to/root | rg '(^|/)filename$'`
+- `find /absolute/path/to/root -name 'filename'`
+
+Before creating, replacing, or overwriting any file that may already exist:
+
+1. Perform an explicit existence check.
+2. If the file exists, read its current contents first.
+3. Only then edit it with a targeted change.
+
+This rule is mandatory for repo control files and instruction files, including
+`AGENTS.md`, `README.md`, `package.json`, CI configs, and other root-level
+configuration.
+
 ## Sanity Project Info for Sanity MCP and CLI
 Sanity project ID: "lwnx6aqb"
 Sanity dataset: "development"
