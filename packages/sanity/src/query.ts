@@ -602,6 +602,9 @@ export const queryGlobalSeoSettings = defineQuery(`
     logo {
       ${imageFields}
     },
+    logoDarkMode {
+      ${imageFields}
+    },
     siteDescription,
     socialLinks{
       linkedin,

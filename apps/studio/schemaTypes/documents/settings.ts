@@ -80,6 +80,16 @@ export const settings = defineType({
       },
     }),
     defineField({
+      name: "logoDarkMode",
+      type: "image",
+      title: "Dark Mode Logo",
+      description:
+        "Optional header logo for dark mode. Keep the tree colors intact, use a transparent background, and lighten only the text. Falls back to the Site Logo when empty.",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
       name: "contactEmail",
       type: "string",
       title: "Contact Email",

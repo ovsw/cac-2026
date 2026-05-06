@@ -155,7 +155,7 @@ export function Navbar({
   };
   const { navbarData, settingsData } = navigationData;
   const { columns, buttons } = navbarData || {};
-  const { logo, siteTitle } = settingsData || {};
+  const { logo, logoDarkMode, siteTitle } = settingsData || {};
 
   // Show skeleton only on initial mount when no fallback data is available
   if (isLoading && !data && !(initialNavbarData && initialSettingsData)) {
@@ -167,11 +167,12 @@ export function Navbar({
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <div className="flex h-10 w-40 items-center">
+          <div className="flex h-full items-center overflow-visible">
             {logo && (
               <Logo
                 alt={siteTitle || ""}
-                height={40}
+                darkImage={logoDarkMode}
+                height={56}
                 image={logo}
                 priority
                 width={120}

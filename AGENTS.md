@@ -48,6 +48,14 @@ for sanity migrations the correct CLI command format to give to the user so they
 
 Turbo Start Sanity — a pnpm monorepo (Turborepo) with a Next.js 16 frontend and Sanity v5 CMS Studio. Uses Biome/Ultracite for linting/formatting.
 
+## Mandatory Quality Gates
+
+- After any meaningful code change, run `pnpm run quality` before claiming the task is complete.
+- If `pnpm run quality` fails, fix the issue or report the blocker explicitly. Do not present the task as done while gates are failing.
+- Before `git push`, the repository hook will run the same full-monorepo `pnpm run quality` gate and block the push on failure.
+- `pre-commit` auto-fixes staged files with Biome. `pre-push` is check-only and runs the full monorepo gate.
+- If you could not run the local gates, say exactly which command was not run and why.
+
 ## Commands
 
 ```bash
@@ -68,6 +76,8 @@ pnpm lint             # Lint all
 pnpm format           # Format all (auto-fix)
 pnpm format:check     # Check formatting without fixing
 pnpm check-types      # TypeScript type checking
+pnpm quality          # Full local quality gate used by CI and pre-push
+pnpm quality:fix      # Autofix formatting/lint before rerunning quality
 
 # Per-package lint/format
 cd apps/web && pnpm lint
@@ -175,7 +185,7 @@ All frontend types derive from generated Sanity types. `apps/web/src/types.ts` e
 ### Node/Runtime
 
 - Node >= 22 required
-- pnpm 10.28.0 (corepack)
+- pnpm 10.32.1 (corepack)
 - Turborepo handles task orchestration — `transit` task runs before lint/format/check-types
 
 ## Agent skills
