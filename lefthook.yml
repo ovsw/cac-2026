@@ -1,16 +1,12 @@
 pre-commit:
   parallel: true
   jobs:
-    - name: biome
+    - name: biome-fix
       glob: "*.{js,jsx,ts,tsx,cjs,mjs,cts,mts,json,jsonc,md,mdx,css,scss,yml,yaml}"
-      run: pnpm exec biome check --write --no-errors-on-unmatched {staged_files}
+      run: pnpm exec biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
       stage_fixed: true
 
 pre-push:
   jobs:
-    - name: format-check
-      run: pnpm format:check
-    - name: lint
-      run: pnpm lint
-    - name: check-types
-      run: pnpm check-types
+    - name: quality
+      run: pnpm run quality

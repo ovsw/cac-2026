@@ -31,7 +31,10 @@ export function Logo({
   const hasDarkVariant = Boolean(darkImage || darkSrc);
 
   return (
-    <Link className="inline-flex shrink-0 items-center overflow-visible" href="/">
+    <Link
+      className="inline-flex shrink-0 items-center overflow-visible"
+      href="/"
+    >
       <LogoAsset
         alt={alt}
         className={hasDarkVariant ? "block w-auto dark:hidden" : "block w-auto"}
@@ -97,11 +100,7 @@ function LogoAsset({
   );
 
   if (className) {
-    return (
-      <span className={className}>
-        {asset}
-      </span>
-    );
+    return <span className={className}>{asset}</span>;
   }
 
   if (image) {
