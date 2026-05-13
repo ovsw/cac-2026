@@ -26,7 +26,7 @@ function SanityButton({
 
   return (
     <Button
-      variant={variant}
+      variant={variant ?? "default"}
       {...props}
       asChild
       className={cn("rounded-[10px]", className)}

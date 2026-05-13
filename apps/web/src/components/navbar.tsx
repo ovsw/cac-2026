@@ -42,7 +42,7 @@ function DesktopColumnDropdown({
       <button
         aria-expanded={isOpen}
         aria-haspopup="menu"
-        className="flex items-center gap-1 px-3 py-2 font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
+        className="flex items-center gap-1 px-3 py-2 font-semibold text-brand-charcoal text-sm transition-colors hover:text-primary dark:text-foreground dark:hover:text-primary"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         type="button"
@@ -52,7 +52,7 @@ function DesktopColumnDropdown({
       </button>
       {isOpen ? (
         <div
-          className="fade-in-0 zoom-in-95 absolute top-full left-0 z-50 min-w-[280px] animate-in rounded-lg border bg-popover p-2 shadow-lg"
+          className="fade-in-0 zoom-in-95 absolute top-full left-0 z-50 min-w-[280px] animate-in rounded-lg border border-primary/20 bg-popover p-2 shadow-lg"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           role="menu"
@@ -83,7 +83,7 @@ function DesktopColumnLink({
 
   return (
     <Link
-      className="px-3 py-2 font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
+      className="px-3 py-2 font-semibold text-brand-charcoal text-sm transition-colors hover:text-primary dark:text-foreground dark:hover:text-primary"
       href={column.href}
     >
       {column.name}
@@ -93,7 +93,7 @@ function DesktopColumnLink({
 
 function NavbarSkeleton() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 w-full border-primary/25 border-b bg-brand-cream/95 backdrop-blur-sm">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo skeleton - matches Logo component dimensions: width={120} height={40} */}
@@ -155,7 +155,7 @@ export function Navbar({
   };
   const { navbarData, settingsData } = navigationData;
   const { columns, buttons } = navbarData || {};
-  const { logo, siteTitle } = settingsData || {};
+  const { logo, logoDarkMode, siteTitle } = settingsData || {};
 
   // Show skeleton only on initial mount when no fallback data is available
   if (isLoading && !data && !(initialNavbarData && initialSettingsData)) {
@@ -163,7 +163,7 @@ export function Navbar({
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 w-full border-primary/25 border-b bg-brand-cream/95 shadow-sm backdrop-blur-sm dark:bg-background/95">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -171,6 +171,7 @@ export function Navbar({
             {logo && (
               <Logo
                 alt={siteTitle || ""}
+                darkImage={logoDarkMode}
                 height={40}
                 image={logo}
                 priority
@@ -198,7 +199,7 @@ export function Navbar({
           <div className="hidden items-center gap-4 md:flex">
             <ModeToggle />
             <SanityButtons
-              buttonClassName="rounded-lg"
+              buttonClassName="rounded-lg font-bold"
               buttons={buttons || []}
               className="flex items-center gap-2"
             />

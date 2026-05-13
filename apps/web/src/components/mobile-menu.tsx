@@ -11,6 +11,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -33,12 +34,16 @@ export function MobileMenu({ navbarData, settingsData }: NavigationData) {
   }
 
   const { columns, buttons } = navbarData || {};
-  const { logo, siteTitle } = settingsData || {};
+  const { logo, logoDarkMode, siteTitle } = settingsData || {};
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button size="icon" variant="ghost">
+        <Button
+          className="text-primary hover:bg-primary/10 hover:text-primary"
+          size="icon"
+          variant="ghost"
+        >
           <Menu className="size-4" />
           <span className="sr-only">Open menu</span>
         </Button>
@@ -46,32 +51,41 @@ export function MobileMenu({ navbarData, settingsData }: NavigationData) {
 
       <SheetContent
         side="right"
-        className="w-full sm:max-w-sm flex flex-col px-0"
+        className="flex w-full flex-col bg-background px-0 sm:max-w-sm"
         showCloseButton={false}
       >
-        <SheetHeader className="flex-row items-center px-6 justify-between pb-4 border-b">
+        <SheetHeader className="flex-row items-center justify-between border-primary/20 border-b bg-brand-cream px-6 pb-4 dark:bg-card">
+          <SheetTitle className={logo ? "sr-only" : undefined}>
+            {siteTitle || "Menu"}
+          </SheetTitle>
+          <SheetDescription className="sr-only">
+            Main navigation menu
+          </SheetDescription>
           {logo ? (
-            <div className="[&_img]:w-auto [&_img]:h-6 [&_img]:rounded-none">
-              <Logo alt={siteTitle || ""} image={logo} />
+            <div className="flex h-10 w-40 items-center">
+              <Logo
+                alt={siteTitle || ""}
+                className="h-10 w-40"
+                darkImage={logoDarkMode}
+                image={logo}
+              />
             </div>
-          ) : (
-            <SheetTitle>{siteTitle || "Menu"}</SheetTitle>
-          )}
-          <SheetClose className="rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+          ) : null}
+          <SheetClose className="rounded-sm text-primary opacity-80 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
             <X className="size-5" />
             <span className="sr-only">Close</span>
           </SheetClose>
         </SheetHeader>
 
         {/* Navigation items - scrollable */}
-        <nav className="flex-1 overflow-y-auto pt-4 grid px-6 gap-1 content-start">
+        <nav className="grid flex-1 content-start gap-1 overflow-y-auto px-6 pt-4">
           <Accordion type="single" collapsible>
             {columns?.map((column) => {
               if (column.type === "link") {
                 if (!column.href) return null;
                 return (
                   <Link
-                    className="flex items-center py-3 font-medium text-sm transition-colors hover:text-primary"
+                    className="flex items-center py-3 font-semibold text-brand-charcoal text-sm transition-colors hover:text-primary dark:text-foreground"
                     href={column.href}
                     key={column._key}
                     onClick={closeMenu}
@@ -92,7 +106,7 @@ export function MobileMenu({ navbarData, settingsData }: NavigationData) {
                       {column.title}
                     </AccordionTrigger>
                     <AccordionContent>
-                      <div className="grid gap-1 border-border border-l-2 pl-4 ml-1">
+                      <div className="ml-1 grid gap-1 border-primary/25 border-l-2 pl-4">
                         {column.links?.map((link: ColumnLink) => (
                           <MenuLink
                             description={link.description || ""}
@@ -115,9 +129,9 @@ export function MobileMenu({ navbarData, settingsData }: NavigationData) {
         </nav>
 
         {buttons?.length && (
-          <SheetFooter className="border-t">
+          <SheetFooter className="border-primary/20 border-t bg-brand-cream/60 dark:bg-card/60">
             <SanityButtons
-              buttonClassName="w-full justify-center"
+              buttonClassName="w-full justify-center font-bold"
               buttons={buttons || []}
               className="grid gap-3"
             />

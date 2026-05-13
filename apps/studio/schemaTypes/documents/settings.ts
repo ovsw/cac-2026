@@ -80,6 +80,16 @@ export const settings = defineType({
       },
     }),
     defineField({
+      name: "logoDarkMode",
+      type: "image",
+      title: "Site Logo (Dark Mode)",
+      description:
+        "Upload an alternate logo for dark backgrounds. Leave empty to reuse the main logo.",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
       name: "contactEmail",
       type: "string",
       title: "Contact Email",
