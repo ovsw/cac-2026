@@ -17,15 +17,19 @@ export function HeroBlock({
   return (
     <section className="mt-4 md:my-16" id="hero">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid items-center gap-8 lg:grid-cols-2">
-          <div className="grid h-full grid-rows-[auto_1fr_auto] items-center justify-items-center gap-4 text-center lg:items-start lg:justify-items-start lg:text-left">
-            {badge && <Badge variant="secondary">{badge}</Badge>}
+        <div className="grid items-stretch gap-8 lg:grid-cols-2">
+          <div className="brand-surface-forest grid h-full grid-rows-[auto_1fr_auto] items-center justify-items-center gap-6 rounded-3xl p-8 text-center shadow-sm md:p-10 lg:items-start lg:justify-items-start lg:p-12 lg:text-left">
+            {badge && (
+              <Badge className="brand-kicker" variant="outline">
+                {badge}
+              </Badge>
+            )}
             <div className="grid gap-4">
               <h1 className="text-balance font-semibold text-4xl lg:text-6xl">
                 {title}
               </h1>
               <RichText
-                className="font-normal text-base md:text-lg"
+                className="font-normal text-base text-primary-foreground/90 md:text-lg"
                 richText={richText}
               />
             </div>
@@ -39,7 +43,7 @@ export function HeroBlock({
           {image && (
             <div className="h-96 w-full">
               <SanityImage
-                className="max-h-96 w-full rounded-3xl object-cover"
+                className="h-full max-h-96 w-full rounded-3xl object-cover"
                 fetchPriority="high"
                 height={800}
                 image={image}

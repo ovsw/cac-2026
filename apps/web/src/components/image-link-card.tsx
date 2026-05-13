@@ -18,27 +18,28 @@ export function CTACard({ card, className }: CTACardProps) {
   return (
     <Link
       className={cn(
-        "group relative flex flex-col justify-end overflow-hidden rounded-3xl p-4 transition-colors md:p-8 xl:h-[400px]",
+        "group relative flex flex-col justify-end overflow-hidden rounded-3xl p-4 text-primary-foreground transition-colors md:p-8 xl:h-[400px]",
         className
       )}
       href={href ?? "#"}
     >
       {image?.id && (
-        <div className="absolute inset-0 z-1 mix-blend-multiply">
-          <SanityImage
-            className="pointer-events-none object-cover opacity-40 grayscale duration-1000 group-hover:opacity-100 group-hover:transition-opacity dark:opacity-60 dark:saturate-200 dark:hover:opacity-[2]"
-            height={1080}
-            image={image}
-            loading="eager"
-            width={1920}
-          />
-        </div>
+        <>
+          <div className="absolute inset-0 z-0">
+            <SanityImage
+              className="pointer-events-none h-full object-cover opacity-35 grayscale duration-700 group-hover:opacity-60 group-hover:grayscale-0 group-hover:transition-opacity"
+              height={1080}
+              image={image}
+              loading="eager"
+              width={1920}
+            />
+          </div>
+          <div className="absolute inset-0 z-1 bg-gradient-to-t from-primary via-primary/80 to-primary/30" />
+        </>
       )}
       <div className="z-2 mb-4 flex flex-col space-y-2 pt-64 duration-500 group-hover:top-8 xl:absolute xl:inset-x-8 xl:top-24">
-        <h3 className="font-medium text-[#111827] text-xl dark:text-neutral-300">
-          {title}
-        </h3>
-        <p className="text-[#374151] text-sm transition-opacity delay-150 duration-300 xl:opacity-0 xl:group-hover:opacity-100 dark:text-neutral-300">
+        <h3 className="font-medium text-primary-foreground text-xl">{title}</h3>
+        <p className="text-primary-foreground/85 text-sm transition-opacity delay-150 duration-300 xl:opacity-0 xl:group-hover:opacity-100">
           {description}
         </p>
       </div>

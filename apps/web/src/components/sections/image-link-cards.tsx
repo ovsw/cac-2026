@@ -16,9 +16,13 @@ export function ImageLinkCards({
   return (
     <section className="my-16" id="image-link-cards">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex w-full flex-col items-center">
+        <div className="flex w-full flex-col items-center px-4 py-12 md:px-8 md:py-16">
           <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:text-center">
-            {eyebrow && <Badge variant="secondary">{eyebrow}</Badge>}
+            {eyebrow && (
+              <Badge className="brand-kicker" variant="outline">
+                {eyebrow}
+              </Badge>
+            )}
             <h2 className="text-balance font-semibold text-3xl md:text-5xl">
               {title}
             </h2>
@@ -32,7 +36,7 @@ export function ImageLinkCards({
                 <CTACard
                   card={card}
                   className={cn(
-                    "bg-muted-foreground/10 dark:bg-zinc-800",
+                    "bg-primary",
                     idx === 0 && "lg:rounded-r-none lg:rounded-l-3xl",
                     idx === cards.length - 1 &&
                       "lg:rounded-r-3xl lg:rounded-l-none",

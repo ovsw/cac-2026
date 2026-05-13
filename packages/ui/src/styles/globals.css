@@ -159,6 +159,56 @@
   }
 }
 
+@layer components {
+  .brand-surface-forest,
+  .brand-footer {
+    --muted-foreground: color-mix(
+      in oklab,
+      var(--primary-foreground) 78%,
+      transparent
+    );
+    --border: color-mix(in oklab, var(--primary-foreground) 24%, transparent);
+    background:
+      radial-gradient(
+        circle at top left,
+        color-mix(in oklab, var(--brand-moss) 42%, transparent),
+        transparent 38%
+      ),
+      var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  .brand-footer a:hover {
+    color: var(--brand-sun);
+  }
+
+  .brand-section-frame {
+    border: 4px solid var(--primary);
+    border-radius: calc(var(--radius) + 1rem);
+    background: var(--card);
+    box-shadow: 0 24px 60px
+      color-mix(in oklab, var(--brand-forest) 14%, transparent);
+  }
+
+  .brand-image-frame {
+    overflow: hidden;
+    padding: 0.5rem;
+    border: 4px solid var(--primary);
+    border-radius: calc(var(--radius) + 1rem);
+    background: color-mix(in oklab, var(--primary) 12%, var(--background));
+  }
+
+  .brand-kicker {
+    border-color: color-mix(in oklab, var(--primary) 28%, transparent);
+    background: color-mix(
+      in oklab,
+      var(--brand-sun) 26%,
+      var(--primary-foreground)
+    );
+    color: var(--brand-forest-deep);
+  }
+}
+
 img {
   display: block;
   max-width: 100%;

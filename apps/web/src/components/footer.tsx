@@ -188,7 +188,7 @@ function Footer({ data, settingsData }: FooterProps) {
         : null;
 
   return (
-    <footer className="mt-20 pb-8">
+    <footer className="brand-footer mt-20 py-12">
       <section className="container mx-auto">
         <div className="h-[500px] lg:h-auto">
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-10 px-4 text-center md:px-6 lg:flex-row lg:text-left">
