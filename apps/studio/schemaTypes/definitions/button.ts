@@ -3,7 +3,13 @@ import { defineField, defineType } from "sanity";
 
 import { capitalize, createRadioListLayout } from "@/utils/helper";
 
-const buttonVariants = ["default", "secondary", "outline", "link"];
+const buttonVariants = [
+  "default",
+  "secondary",
+  "outline",
+  "link",
+  "enrollment",
+];
 
 export const button = defineType({
   name: "button",
@@ -15,7 +21,7 @@ export const button = defineType({
       name: "variant",
       type: "string",
       description:
-        "Choose the button's visual style - default is solid, secondary is less prominent, outline has a border, and link looks like regular text",
+        "Choose the button's visual style - default is the standard yellow call to action, enrollment is reserved for enrollment actions, secondary is less prominent, outline has a border, and link looks like regular text",
       initialValue: () => "default",
       options: createRadioListLayout(buttonVariants, {
         direction: "horizontal",

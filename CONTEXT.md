@@ -74,6 +74,63 @@ _Avoid_: Header section, page section
 The site-wide footer content used across the website.
 _Avoid_: Footer section, page section
 
+**Brand Theme**:
+The Canadian Adventure Camp visual identity applied consistently across digital
+interfaces.
+_Avoid_: Web-only theme, page styling
+
+**Brand Palette**:
+The set of canonical colors used by the **Brand Theme**.
+_Avoid_: Ad hoc colors, component palette
+
+**Brand Color**:
+A named canonical color in the **Brand Palette**.
+_Avoid_: One-off color, anonymous swatch
+
+**Primary Brand Color**:
+The main **Brand Color** used to express Canadian Adventure Camp identity.
+_Avoid_: Default CTA color, accent color
+
+**Standard CTA Color**:
+The **Brand Color** used for ordinary high-attention calls to action.
+_Avoid_: Primary brand color, enrollment color
+
+**Enrollment Urgency Color**:
+The **Brand Color** reserved for enrollment-specific calls to action.
+_Avoid_: Default CTA color, destructive color
+
+**Enrollment CTA**:
+A call to action that asks visitors to begin or continue camp enrollment.
+_Avoid_: Destructive action, generic CTA
+
+**Destructive Action**:
+A user action that removes, deletes, or otherwise damages data or state.
+_Avoid_: Enrollment CTA, urgent CTA
+
+**Brand Color Role**:
+A recognizable use of color in the **Brand Theme**, independent of the exact
+technical color value used to render it.
+_Avoid_: Hex color, hard-coded color
+
+**Light Brand Theme**:
+The first supported presentation of the **Brand Theme**, matching the current
+Canadian Adventure Camp visual direction.
+_Avoid_: Complete brand theme
+
+**Dark Mode Exploration**:
+A promised follow-up evaluation of how the **Brand Theme** should translate to
+dark surfaces.
+_Avoid_: Finished dark theme, removed dark mode
+
+**Theme Toggle**:
+The header control that lets visitors switch between light and dark
+presentations of the website.
+_Avoid_: Dark mode promise, brand theme
+
+**Brand Theme Rollout**:
+The staged application of the **Brand Theme** to shared website surfaces.
+_Avoid_: Full redesign, one-off restyle
+
 **Page Builder**:
 The content area where editors add, order, and manage **Blocks** for a
 **Page** or other page-builder-driven content item.
@@ -154,6 +211,30 @@ begins.
 - A **Redirect** sends visitors from one website URL to another.
 - The **Navbar** and **Footer** are site-wide content items separate from any
   individual **Page**.
+- The **Brand Palette** belongs to the **Brand Theme** and applies consistently
+  across digital interfaces, not only to one website surface.
+- The **Brand Palette** contains named **Brand Colors** used through
+  **Brand Color Roles**.
+- Forest green is the **Primary Brand Color**.
+- Yellow is the **Standard CTA Color**.
+- Red is the **Enrollment Urgency Color**.
+- An **Enrollment CTA** uses the **Enrollment Urgency Color** and should be
+  reusable across shared website surfaces.
+- An **Enrollment CTA** is not a **Destructive Action**, even though both may
+  use red visual cues.
+- A **Brand Color Role** should preserve recognizable Canadian Adventure Camp
+  color usage while allowing color values to be tuned for accessibility.
+- The **Brand Palette** should use tuned color values inspired by the legacy
+  website, not exact samples from screenshots or compressed media.
+- The **Light Brand Theme** is the first implementation target.
+- **Dark Mode Exploration** remains promised follow-up work, not a rejected
+  feature.
+- The **Theme Toggle** can remain visible during the light-theme rollout if the
+  dark presentation remains functional after the **Brand Palette** update.
+- The first **Brand Theme Rollout** focuses on shared visual foundations,
+  site-wide navigation, and call-to-action presentation.
+- The first **Brand Theme Rollout** preserves the current **Navbar** layout
+  while applying **Brand Color Roles** to its presentation.
 - The **Blog Index** organizes and presents **Blog Posts**.
 - An **Author** can be credited on one or more **Blog Posts**.
 - An **FAQ** is a reusable content item that can be displayed in an
@@ -169,6 +250,8 @@ begins.
   referenced by multiple pages.
 - A **Reusable Section** has its own **Page Builder**, and its internal
   composition model matches the **Page Builder** used on a **Page**.
+- A **Reusable Section** cannot contain a reference to another
+  **Reusable Section**.
 - A **Draft** is unpublished content prepared for later publication.
 - **Published** describes content that is live on the website.
 - **Scheduled Drafts** can publish drafts at a chosen time without creating a
@@ -181,7 +264,7 @@ begins.
 - **Summer Season**, **Fall Follow-up Season**, **Recruitment Season**, and
   **Spring Push Season** are the four canonical **Camp Seasons**.
 
-## Example dialogue
+## Example Dialogue
 
 > **Dev:** "For **Spring Push Season**, should we duplicate the **Home Page**
 > and copy the CTA into every relevant **Page**?"
@@ -201,7 +284,7 @@ begins.
 > a website state. Some pages may stay evergreen, and some may be updated
 > later."
 
-## Flagged ambiguities
+## Flagged Ambiguities
 
 - `web` and `studio` were considered as separate contexts; resolved: they are
   technical surfaces inside one shared domain context.
@@ -241,6 +324,8 @@ begins.
   content item referenced by pages, not a page-local section instance.
 - The internal composition of **Reusable Section** was clarified: it uses the
   same page-builder schema and terminology as a **Page**.
+- Nested **Reusable Sections** were rejected: a **Reusable Section** cannot
+  reference another **Reusable Section** from its own **Page Builder**.
 - `Reusable Section` was kept as the canonical term over alternatives such as
   `Shared Section`.
 - `Navbar` and `Footer` were considered as possible page-local sections;
@@ -255,6 +340,9 @@ begins.
 - Camp offerings such as programs or experiences were considered as possible
   domain concepts; resolved: keep them out for now unless they become
   first-class managed content entities.
+- The legacy Canadian Adventure Camp header structure was considered for the
+  first **Brand Theme Rollout**; resolved: preserve the current **Navbar**
+  layout and apply **Brand Color Roles** to it.
 - `Redirect` was treated as formal editorial language because stakeholders are
   likely to request redirects directly.
 - `Slug` was added as a formal term because editors talk about and edit it

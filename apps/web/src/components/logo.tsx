@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { cn } from "@workspace/ui/lib/utils";
+
 import type { Maybe, SanityImageProps } from "@/types";
 import { SanityImage } from "./elements/sanity-image";
 
@@ -16,6 +18,7 @@ type LogoProps = {
   width?: number;
   height?: number;
   priority?: boolean;
+  className?: string;
 };
 
 export function Logo({
@@ -27,8 +30,10 @@ export function Logo({
   width = 170,
   height = 40,
   priority = true,
+  className,
 }: LogoProps) {
   const hasDarkVariant = Boolean(darkImage || darkSrc);
+  const baseAssetClassName = cn("block w-auto", className);
 
   return (
     <Link
@@ -37,50 +42,45 @@ export function Logo({
     >
       <LogoAsset
         alt={alt}
-        className={hasDarkVariant ? "block w-auto dark:hidden" : "block w-auto"}
+        className={
+          hasDarkVariant
+            ? cn(baseAssetClassName, "dark:hidden")
+            : baseAssetClassName
+        }
         height={height}
         image={image}
         priority={priority}
         src={src}
         width={width}
       />
-      {hasDarkVariant && (
+      {hasDarkVariant ? (
         <LogoAsset
           alt={alt}
-          className="hidden w-auto dark:block"
+          className={cn("hidden w-auto dark:block", className)}
           height={height}
           image={darkImage}
           priority={priority}
-          src={darkSrc ?? src}
+          src={darkSrc}
           width={width}
         />
-      )}
+      ) : null}
     </Link>
   );
 }
 
-type LogoAssetProps = {
-  src?: Maybe<string>;
-  image?: Maybe<SanityImageProps>;
-  alt?: Maybe<string>;
-  width: number;
-  height: number;
-  priority: boolean;
-  className?: string;
-};
-
 function LogoAsset({
   src,
+  alt = "logo",
   image,
-  alt,
   width,
   height,
   priority,
   className,
-}: LogoAssetProps) {
+}: LogoProps) {
   const asset = image ? (
     <SanityImage
       alt={alt ?? "logo"}
+      className="rounded-none object-contain"
       decoding="sync"
       image={image}
       loading="eager"
@@ -89,6 +89,7 @@ function LogoAsset({
   ) : (
     <Image
       alt={alt ?? "logo"}
+      className="rounded-none object-contain"
       decoding="sync"
       height={height}
       loading="eager"
@@ -99,13 +100,7 @@ function LogoAsset({
     />
   );
 
-  if (className) {
-    return <span className={className}>{asset}</span>;
-  }
-
-  if (image) {
-    return asset;
-  }
+  if (className) return <span className={className}>{asset}</span>;
 
   return asset;
 }

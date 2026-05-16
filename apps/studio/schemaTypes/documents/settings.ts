@@ -82,9 +82,9 @@ export const settings = defineType({
     defineField({
       name: "logoDarkMode",
       type: "image",
-      title: "Dark Mode Logo",
+      title: "Site Logo (Dark Mode)",
       description:
-        "Optional header logo for dark mode. Keep the tree colors intact, use a transparent background, and lighten only the text. Falls back to the Site Logo when empty.",
+        "Upload an alternate logo for dark backgrounds. Leave empty to reuse the main logo.",
       options: {
         hotspot: true,
       },

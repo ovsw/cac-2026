@@ -3898,6 +3898,10 @@
               {
                 "type": "string",
                 "value": "link"
+              },
+              {
+                "type": "string",
+                "value": "enrollment"
               }
             ]
           },

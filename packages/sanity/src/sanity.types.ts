@@ -622,7 +622,7 @@ export type PageBuilder = Array<
 
 export type Button = {
   _type: "button";
-  variant?: "default" | "secondary" | "outline" | "link";
+  variant?: "default" | "secondary" | "outline" | "link" | "enrollment";
   text?: string;
   url?: CustomUrl;
 };
@@ -1539,7 +1539,13 @@ export type QueryHomePageDataResult = {
         }> | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -1707,7 +1713,13 @@ export type QueryHomePageDataResult = {
         } | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -1748,7 +1760,13 @@ export type QueryHomePageDataResult = {
         }> | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -1818,7 +1836,13 @@ export type QueryHomePageDataResult = {
         }> | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -1913,7 +1937,13 @@ export type QueryHomePageDataResult = {
         video?: string;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -1969,7 +1999,13 @@ export type QueryHomePageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -2165,7 +2201,13 @@ export type QueryHomePageDataResult = {
                 } | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -2213,7 +2255,13 @@ export type QueryHomePageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -2290,7 +2338,13 @@ export type QueryHomePageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -2399,7 +2453,13 @@ export type QueryHomePageDataResult = {
                 video?: string;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -2827,7 +2887,13 @@ export type QueryHomePageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -3023,7 +3089,13 @@ export type QueryHomePageDataResult = {
                 } | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -3071,7 +3143,13 @@ export type QueryHomePageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -3148,7 +3226,13 @@ export type QueryHomePageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -3257,7 +3341,13 @@ export type QueryHomePageDataResult = {
                 video?: string;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -3702,7 +3792,13 @@ export type QuerySlugPageDataResult = {
         }> | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -3870,7 +3966,13 @@ export type QuerySlugPageDataResult = {
         } | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -3911,7 +4013,13 @@ export type QuerySlugPageDataResult = {
         }> | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -3981,7 +4089,13 @@ export type QuerySlugPageDataResult = {
         }> | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -4076,7 +4190,13 @@ export type QuerySlugPageDataResult = {
         video?: string;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -4132,7 +4252,13 @@ export type QuerySlugPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -4328,7 +4454,13 @@ export type QuerySlugPageDataResult = {
                 } | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -4376,7 +4508,13 @@ export type QuerySlugPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -4453,7 +4591,13 @@ export type QuerySlugPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -4562,7 +4706,13 @@ export type QuerySlugPageDataResult = {
                 video?: string;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -4990,7 +5140,13 @@ export type QuerySlugPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -5186,7 +5342,13 @@ export type QuerySlugPageDataResult = {
                 } | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -5234,7 +5396,13 @@ export type QuerySlugPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -5311,7 +5479,13 @@ export type QuerySlugPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -5420,7 +5594,13 @@ export type QuerySlugPageDataResult = {
                 video?: string;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -5882,7 +6062,13 @@ export type QueryBlogIndexPageDataResult = {
         }> | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -6050,7 +6236,13 @@ export type QueryBlogIndexPageDataResult = {
         } | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -6091,7 +6283,13 @@ export type QueryBlogIndexPageDataResult = {
         }> | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -6161,7 +6359,13 @@ export type QueryBlogIndexPageDataResult = {
         }> | null;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -6256,7 +6460,13 @@ export type QueryBlogIndexPageDataResult = {
         video?: string;
         buttons: Array<{
           text: string | null;
-          variant: "default" | "link" | "outline" | "secondary" | null;
+          variant:
+            | "default"
+            | "enrollment"
+            | "link"
+            | "outline"
+            | "secondary"
+            | null;
           _key: string;
           _type: "button";
           openInNewTab: boolean | null;
@@ -6312,7 +6522,13 @@ export type QueryBlogIndexPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -6508,7 +6724,13 @@ export type QueryBlogIndexPageDataResult = {
                 } | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -6556,7 +6778,13 @@ export type QueryBlogIndexPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -6633,7 +6861,13 @@ export type QueryBlogIndexPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -6742,7 +6976,13 @@ export type QueryBlogIndexPageDataResult = {
                 video?: string;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -7170,7 +7410,13 @@ export type QueryBlogIndexPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -7366,7 +7612,13 @@ export type QueryBlogIndexPageDataResult = {
                 } | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -7414,7 +7666,13 @@ export type QueryBlogIndexPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -7491,7 +7749,13 @@ export type QueryBlogIndexPageDataResult = {
                 }> | null;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -7600,7 +7864,13 @@ export type QueryBlogIndexPageDataResult = {
                 video?: string;
                 buttons: Array<{
                   text: string | null;
-                  variant: "default" | "link" | "outline" | "secondary" | null;
+                  variant:
+                    | "default"
+                    | "enrollment"
+                    | "link"
+                    | "outline"
+                    | "secondary"
+                    | null;
                   _key: string;
                   _type: "button";
                   openInNewTab: boolean | null;
@@ -8400,7 +8670,7 @@ export type QueryNavbarDataResult = {
   > | null;
   buttons: Array<{
     text: string | null;
-    variant: "default" | "link" | "outline" | "secondary" | null;
+    variant: "default" | "enrollment" | "link" | "outline" | "secondary" | null;
     _key: string;
     _type: "button";
     openInNewTab: boolean | null;
