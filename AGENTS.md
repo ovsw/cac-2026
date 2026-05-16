@@ -8,6 +8,35 @@ When using them for repo inspection, always start each command with:
 
 Do not assume the sandbox starts in the repository root.
 
+## File existence and context-mode guardrails
+
+Do not infer that a file is missing from a `ctx_batch_execute` or
+`ctx_search` retrieval miss.
+
+- A search result of "No matching sections found" is **not** proof that a
+  file does not exist.
+- Treat `ctx_batch_execute` command output as the source of truth for file
+  inventory questions.
+- Use search results to locate relevant content within gathered output, not to
+  prove file absence.
+
+When the question is whether a file exists, use an explicit existence check
+first, such as:
+
+- `test -f /absolute/path/to/file`
+- `rg --files /absolute/path/to/root | rg '(^|/)filename$'`
+- `find /absolute/path/to/root -name 'filename'`
+
+Before creating, replacing, or overwriting any file that may already exist:
+
+1. Perform an explicit existence check.
+2. If the file exists, read its current contents first.
+3. Only then edit it with a targeted change.
+
+This rule is mandatory for repo control files and instruction files, including
+`AGENTS.md`, `README.md`, `package.json`, CI configs, and other root-level
+configuration.
+
 ## Sanity Project Info for Sanity MCP and CLI
 Sanity project ID: "lwnx6aqb"
 Sanity dataset: "development"
@@ -18,6 +47,14 @@ for sanity migrations the correct CLI command format to give to the user so they
 # Project Overview
 
 Turbo Start Sanity — a pnpm monorepo (Turborepo) with a Next.js 16 frontend and Sanity v5 CMS Studio. Uses Biome/Ultracite for linting/formatting.
+
+## Mandatory Quality Gates
+
+- After any meaningful code change, run `pnpm run quality` before claiming the task is complete.
+- If `pnpm run quality` fails, fix the issue or report the blocker explicitly. Do not present the task as done while gates are failing.
+- Before `git push`, the repository hook will run the same full-monorepo `pnpm run quality` gate and block the push on failure.
+- `pre-commit` auto-fixes staged files with Biome. `pre-push` is check-only and runs the full monorepo gate.
+- If you could not run the local gates, say exactly which command was not run and why.
 
 ## Commands
 
@@ -39,6 +76,8 @@ pnpm lint             # Lint all
 pnpm format           # Format all (auto-fix)
 pnpm format:check     # Check formatting without fixing
 pnpm check-types      # TypeScript type checking
+pnpm quality          # Full local quality gate used by CI and pre-push
+pnpm quality:fix      # Autofix formatting/lint before rerunning quality
 
 # Per-package lint/format
 cd apps/web && pnpm lint
@@ -146,5 +185,24 @@ All frontend types derive from generated Sanity types. `apps/web/src/types.ts` e
 ### Node/Runtime
 
 - Node >= 22 required
-- pnpm 10.28.0 (corepack)
+- pnpm 10.32.1 (corepack)
 - Turborepo handles task orchestration — `transit` task runs before lint/format/check-types
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in GitHub Issues for this repository. See
+`docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The repo uses the default five triage labels: `needs-triage`,
+`needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. See
+`docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This repo uses a multi-context domain-doc layout with a root
+`CONTEXT-MAP.md` and per-context `CONTEXT.md` and ADRs where present.
+See `docs/agents/domain.md`.

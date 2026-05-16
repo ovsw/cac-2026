@@ -3,6 +3,7 @@
 import { useOptimistic } from "@sanity/visual-editing/react";
 import { env } from "@workspace/env/client";
 import { createDataAttribute } from "next-sanity";
+import type { ComponentType } from "react";
 import { useCallback, useMemo } from "react";
 
 import type {
@@ -48,6 +49,10 @@ type PageBuilderBlockListProps = {
   readonly blocks: RenderablePageBuilderBlock[];
   readonly id: string;
   readonly type: string;
+};
+
+type BlockRendererComponentProps = {
+  readonly blockIndex?: number;
 };
 
 function ReusableSectionReferenceBlock({
@@ -175,7 +180,7 @@ function useBlockRenderer(id: string, type: string) {
   );
 
   const renderBlock = useCallback(
-    (block: RenderablePageBuilderBlock, _index: number) => {
+    (block: RenderablePageBuilderBlock, index: number) => {
       const Component =
         BLOCK_COMPONENTS[block._type as keyof typeof BLOCK_COMPONENTS];
 
@@ -189,13 +194,19 @@ function useBlockRenderer(id: string, type: string) {
         );
       }
 
+      const DynamicComponent = Component as ComponentType<
+        Record<string, unknown> & BlockRendererComponentProps
+      >;
+
       return (
         <div
           data-sanity={createBlockDataAttribute(block._key)}
           key={`${block._type}-${block._key}`}
         >
-          {/** biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering> */}
-          <Component {...(block as any)} />
+          <DynamicComponent
+            {...block}
+            {...({ blockIndex: index } satisfies BlockRendererComponentProps)}
+          />
         </div>
       );
     },

@@ -34,6 +34,13 @@ export default async function RootLayout({
   const nav = await getNavigationData();
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          async
+          crossOrigin="anonymous"
+          src="https://tweakcn.com/live-preview.min.js"
+        />
+      </head>
       <body
         className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
       >

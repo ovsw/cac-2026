@@ -1,6 +1,10 @@
 import { Badge } from "@workspace/ui/components/badge";
+import { cn } from "@workspace/ui/lib/utils";
 
 import type { PagebuilderType } from "@/types";
+import { RichText } from "../elements/rich-text";
+import { SanityButtons } from "../elements/sanity-buttons";
+import { SanityImage } from "../elements/sanity-image";
 
 type LegacyMagSectionProps = PagebuilderType<"legacyMagSection">;
 type LegacyCtaSectionProps = PagebuilderType<"legacyCtaSection">;
@@ -11,6 +15,10 @@ type LegacyTestimonialSectionProps =
 type LegacyTestimonialsSectionProps =
   PagebuilderType<"legacyTestimonialsSection">;
 type LegacyReusedSectionProps = PagebuilderType<"legacyReusedSection">;
+
+type LegacyMagazineSectionProps = LegacyMagSectionProps & {
+  readonly blockIndex?: number;
+};
 
 function LegacyShell({
   title,
@@ -45,16 +53,101 @@ export function LegacyMagSectionBlock({
   title,
   subtitle,
   eyebrow,
+  text,
   image,
-}: LegacyMagSectionProps) {
+  buttons,
+  blockIndex = 0,
+}: LegacyMagazineSectionProps) {
+  const isImageFirst = blockIndex % 2 !== 0;
+  const hasAlternateBackground = blockIndex % 2 === 0;
+  const mediaBreakoutClass = isImageFirst
+    ? "xl:-ml-[calc(50vw-50%)]"
+    : "xl:-mr-[calc(50vw-50%)]";
+  const contentSpacingClass = isImageFirst ? "xl:pl-10" : "xl:pr-10";
+
   return (
-    <LegacyShell eyebrow={eyebrow} subtitle={subtitle} title={title}>
-      <div className="rounded-3xl bg-muted p-6 text-muted-foreground text-sm">
-        {image?.asset
-          ? "Legacy image and portable-text content were preserved in the migrated block and need a dedicated frontend pass."
-          : "Legacy portable-text content was preserved in the migrated block and needs a dedicated frontend pass."}
+    <section
+      className={cn(
+        "relative left-1/2 w-screen -translate-x-1/2 overflow-hidden py-12 md:py-20",
+        hasAlternateBackground
+          ? "bg-black/[0.045] dark:bg-white/[0.06]"
+          : "bg-background"
+      )}
+    >
+      <div className="container mx-auto max-w-[76.5rem] px-4 md:px-6">
+        <div
+          className={cn(
+            "grid grid-cols-1 items-center gap-10 xl:grid-cols-2 xl:items-stretch xl:gap-0",
+            isImageFirst && image ? "xl:[&>*:first-child]:order-2" : ""
+          )}
+        >
+          <div className={contentSpacingClass}>
+            <div className="mx-auto flex w-full max-w-[52.5rem] flex-col items-start justify-center gap-8 xl:max-w-full">
+              <div className="flex max-w-[42rem] flex-col items-start gap-6 xl:max-w-full">
+                {eyebrow ? (
+                  <Badge
+                    className="rounded-md px-[0.625rem] py-1 font-mono text-xs uppercase"
+                    variant="secondary"
+                  >
+                    {eyebrow}
+                  </Badge>
+                ) : null}
+                {title ? (
+                  <h2 className="text-balance text-4xl leading-none font-semibold tracking-tighter text-foreground md:text-7xl">
+                    {title}
+                  </h2>
+                ) : null}
+                {subtitle ? (
+                  <p className="max-w-[42rem] text-base leading-snug text-foreground md:text-lg">
+                    {subtitle}
+                  </p>
+                ) : null}
+                {text?.length ? (
+                  <RichText
+                    className="max-w-[42rem] text-muted-foreground text-sm md:text-base"
+                    richText={text}
+                  />
+                ) : null}
+              </div>
+
+              <SanityButtons
+                buttonClassName="h-fit w-full rounded-xl px-5 py-3 text-[0.9375rem] leading-normal font-medium sm:w-auto"
+                buttons={buttons ?? null}
+                className="w-full items-stretch gap-4 md:flex-row md:items-center"
+              />
+            </div>
+          </div>
+
+          {image ? (
+            <div className="flex xl:h-full xl:items-stretch">
+              <div
+                className={cn(
+                  "border-muted2 w-full overflow-hidden rounded-[1.25rem] border md:w-[63.4375rem] xl:max-w-none",
+                  mediaBreakoutClass
+                )}
+              >
+                <div className="relative aspect-[1.5378787878787878] xl:h-full xl:min-h-[42rem] xl:aspect-auto">
+                  <SanityImage
+                    className="absolute inset-0 !h-full !w-full object-cover object-center"
+                    fetchPriority={blockIndex === 0 ? "high" : "low"}
+                    height={900}
+                    image={image}
+                    loading="eager"
+                    width={1384}
+                  />
+                  <div className="absolute top-0 left-0 z-20 h-[0.125rem] w-full">
+                    <div className="absolute h-full w-[20%] animate-slide-to-right bg-[linear-gradient(270deg,var(--color-primary)_0%,var(--color-transparent)_85%)] md:w-[14%]" />
+                  </div>
+                  <div className="absolute bottom-0 left-0 z-20 h-full w-[0.125rem]">
+                    <div className="absolute h-[24%] w-full animate-slide-to-top bg-[linear-gradient(180deg,var(--color-primary)_0%,var(--color-transparent)_85%)] md:h-[17%]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
       </div>
-    </LegacyShell>
+    </section>
   );
 }
 
